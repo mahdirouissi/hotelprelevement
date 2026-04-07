@@ -35,6 +35,8 @@ const Dashboard = () => {
 
     useEffect(() => {
         loadData();
+        const interval = setInterval(loadData, 30000);
+        return () => clearInterval(interval);
     }, []);
 
     const loadData = async () => {
