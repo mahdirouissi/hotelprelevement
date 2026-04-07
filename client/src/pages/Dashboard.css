@@ -1,5 +1,6 @@
 .dashboard {
     min-height: 100vh;
+    width: 100%;
     background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
 }
 
@@ -11,6 +12,8 @@
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .dashboard-header h1 {
@@ -53,8 +56,6 @@
 
 .dashboard-content {
     padding: 30px;
-    max-width: 1400px;
-    margin: 0 auto;
     width: 100%;
     box-sizing: border-box;
 }
