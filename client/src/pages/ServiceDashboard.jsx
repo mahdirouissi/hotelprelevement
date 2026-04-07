@@ -32,7 +32,7 @@ const ServiceDashboard = () => {
     useEffect(() => {
         loadData();
         // Refresh automatique toutes les 30 secondes
-        const interval = setInterval(loadData, 15000);
+        const interval = setInterval(loadData, 5000);
         return () => clearInterval(interval);
     }, []);
 

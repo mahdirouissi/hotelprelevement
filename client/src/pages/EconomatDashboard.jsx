@@ -39,7 +39,7 @@ const EconomatDashboard = () => {
 
     useEffect(() => {
         loadData();
-        const interval = setInterval(loadData, 15000);
+        const interval = setInterval(loadData, 5000);
         return () => clearInterval(interval);
     }, []);
 
