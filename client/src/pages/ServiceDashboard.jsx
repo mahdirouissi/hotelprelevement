@@ -61,11 +61,11 @@ const ServiceDashboard = () => {
             // Show toast for new and changed rows
             if (newlyAdded.length > 0) {
                 setToast(`Nouvelle demande #${newlyAdded[0].id} créée`);
-                setTimeout(() => setToast(null), 20000);
+                setTimeout(() => setToast(null), 7000);
             }
             if (changed.length > 0) {
                 setToast(`Demande #${changed[0].id} - Statut changé`);
-                setTimeout(() => setToast(null), 20000);
+                setTimeout(() => setToast(null), 7000);
             }
             
             previousRequestsRef.current = requestsData;
