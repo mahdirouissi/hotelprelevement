@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import { copyFileSync, existsSync, mkdirSync } from 'fs'
+import { copyFileSync, existsSync } from 'fs'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -9,11 +9,15 @@ export default defineConfig({
     {
       name: 'copy-redirects',
       closeBundle() {
-        const redirectsPath = './_redirects'
+        // Try multiple possible source locations
+        const sources = ['./_redirects', './client/_redirects', './client/public/_redirects']
         const distPath = './dist/_redirects'
-        if (existsSync(redirectsPath)) {
-          copyFileSync(redirectsPath, distPath)
-          console.log('Copied _redirects to dist')
+        for (const src of sources) {
+          if (existsSync(src)) {
+            copyFileSync(src, distPath)
+            console.log('Copied _redirects from', src)
+            break
+          }
         }
       }
     }
