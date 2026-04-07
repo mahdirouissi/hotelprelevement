@@ -28,6 +28,8 @@ export const AuthProvider = ({ children }) => {
     const logout = () => {
         authService.logout();
         setUser(null);
+        // Force redirect to login page
+        window.location.hash = '#/login';
     };
 
     const isAuthenticated = () => {
