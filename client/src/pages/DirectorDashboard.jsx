@@ -19,7 +19,7 @@ const DirectorDashboard = () => {
 
     useEffect(() => {
         loadData();
-        const interval = setInterval(loadData, 30000);
+        const interval = setInterval(loadData, 15000);
         return () => clearInterval(interval);
     }, []);
 
