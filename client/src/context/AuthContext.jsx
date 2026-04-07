@@ -28,8 +28,9 @@ export const AuthProvider = ({ children }) => {
     const logout = () => {
         authService.logout();
         setUser(null);
-        // Force redirect to login page
-        window.location.hash = '#/login';
+        // Use window.location.href to force a full page reload
+        // This ensures the hash is properly set after logout
+        window.location.href = window.location.origin + window.location.pathname + '#/login';
     };
 
     const isAuthenticated = () => {
