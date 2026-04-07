@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  myapi:
+    build:
+      context: .
+      dockerfile: MyApi/Dockerfile
+    container_name: myapi
+    ports:
+      - "5000:5000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5000
+      # Note: For production, use a proper database service
+      # The connection string is read from appsettings.json or environment variable
+    volumes:
+      - ./MyApi/appsettings.json:/app/appsettings.json:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Optional: PostgreSQL for local development
+  # postgres:
+  #   image: postgres:16-alpine
+  #   container_name: myapi-db
+  #   environment:
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: yourpassword
+  #     POSTGRES_DB: myapi
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   restart: unless-stopped
+
+# volumes:
+#   postgres_data:

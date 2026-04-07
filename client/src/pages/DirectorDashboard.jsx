@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect, useRef, Fragment } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { requestService } from '../services/api';
 import './Dashboard.css';
@@ -16,6 +16,8 @@ const DirectorDashboard = () => {
     const [editingItems, setEditingItems] = useState([]);
     const [modificationReason, setModificationReason] = useState('');
     const [expandedRows, setExpandedRows] = useState({});
+    const previousRequestsRef = useRef([]);
+    const [toast, setToast] = useState(null);
 
     useEffect(() => {
         loadData();
@@ -26,7 +28,28 @@ const DirectorDashboard = () => {
     const loadData = async () => {
         try {
             const requestsData = await requestService.getAllRequests();
-            // Director sees all requests
+            
+            // Detect new requests or status changes
+            const prevIds = new Set(previousRequestsRef.current.map(r => r.id));
+            const newIds = new Set(requestsData.map(r => r.id));
+            
+            const newlyAdded = requestsData.filter(r => !prevIds.has(r.id));
+            const changed = requestsData.filter(r => {
+                const prev = previousRequestsRef.current.find(p => p.id === r.id);
+                return prev && prev.status !== r.status;
+            });
+            
+            // Show toast for new and changed rows
+            if (newlyAdded.length > 0) {
+                setToast(`Nouvelle demande #${newlyAdded[0].id} créée`);
+                setTimeout(() => setToast(null), 7000);
+            }
+            if (changed.length > 0) {
+                setToast(`Demande #${changed[0].id} - Statut changé`);
+                setTimeout(() => setToast(null), 7000);
+            }
+            
+            previousRequestsRef.current = requestsData;
             setRequests(requestsData);
         } catch (err) {
             console.error('Error loading data:', err);
@@ -496,6 +519,11 @@ const DirectorDashboard = () => {
                             </div>
                         </div>
                     </div>
+                </div>
+            )}
+            {toast && (
+                <div className="toast">
+                    {toast}
                 </div>
             )}
         </div>

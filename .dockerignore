@@ -1,0 +1,26 @@
+# .dockerignore for docker-compose build
+
+# Exclude all client files
+client/
+node_modules/
+
+# Exclude build outputs from MyApi
+MyApi/bin/
+MyApi/obj/
+
+# Exclude development and IDE files
+.vs/
+.vscode/
+*.user
+*.suo
+
+# Exclude git
+.git/
+.gitignore
+
+# Exclude solution files (optional)
+*.sln
+
+# Exclude documentation
+*.md
+README*
