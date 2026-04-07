@@ -3,11 +3,11 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # Copy project file and restore dependencies
-COPY MyApi/MyApi.csproj ./MyApi/
-RUN dotnet restore MyApi/MyApi.csproj
+COPY MyApi.csproj ./
+RUN dotnet restore MyApi.csproj
 
 # Copy all source files
-COPY MyApi/ ./MyApi/
+COPY . .
 
 # Build the application
 WORKDIR /src/MyApi
