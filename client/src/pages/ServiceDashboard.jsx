@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { requestService } from '../services/api';
 import './Dashboard.css';
@@ -7,6 +7,8 @@ const ServiceDashboard = () => {
     const { user } = useAuth();
     const [requests, setRequests] = useState([]);
     const [loading, setLoading] = useState(true);
+    const previousRequestsRef = useRef([]);
+    const [highlightedIds, setHighlightedIds] = useState(new Set());
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [expandedRows, setExpandedRows] = useState({});
     const [showDetailsModal, setShowDetailsModal] = useState(false);
@@ -45,6 +47,41 @@ const ServiceDashboard = () => {
             } else {
                 requestsData = await requestService.getAllRequests();
             }
+            
+            // Detect new requests or status changes
+            const prevIds = new Set(previousRequestsRef.current.map(r => r.id));
+            const newIds = new Set(requestsData.map(r => r.id));
+            
+            const newlyAdded = requestsData.filter(r => !prevIds.has(r.id));
+            const changed = requestsData.filter(r => {
+                const prev = previousRequestsRef.current.find(p => p.id === r.id);
+                return prev && prev.status !== r.status;
+            });
+            
+            if (newlyAdded.length > 0) {
+                // Show notification for new requests
+                if (Notification.permission === 'granted') {
+                    new Notification('Nouvelle demande', {
+                        body: `${newlyAdded.length} nouvelle(s) demande(s) została créée(s)`
+                    });
+                } else if (confirm(`${newlyAdded.length} nouvelle(s) demande(s) - Cliquez pour voir`)) {
+                    // User clicked OK
+                }
+            }
+            
+            if (changed.length > 0) {
+                if (Notification.permission === 'granted') {
+                    new Notification('Statut modifié', {
+                        body: `${changed.length} demande(s) a changé de statut`
+                    });
+                }
+                // Highlight changed rows
+                setHighlightedIds(new Set([...newlyAdded.map(r => r.id), ...changed.map(r => r.id)]));
+                // Remove highlight after 5 seconds
+                setTimeout(() => setHighlightedIds(new Set()), 5000);
+            }
+            
+            previousRequestsRef.current = requestsData;
             setRequests(requestsData);
         } catch (err) {
             console.error('Error loading data:', err);
@@ -155,7 +192,7 @@ const ServiceDashboard = () => {
                                 <tbody>
                                     {requests.map(req => (
                                         <React.Fragment key={req.id}>
-                                            <tr>
+                                            <tr className={highlightedIds.has(req.id) ? 'row-highlight' : ''}>
                                                 <td>#{req.id}</td>
                                                 <td>{new Date(req.requestDate).toLocaleString()}</td>
                                                 <td>{req.serviceName}</td>
