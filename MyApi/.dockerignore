@@ -1,0 +1,33 @@
+# .dockerignore for MyApi
+
+# Exclude build outputs
+bin/
+obj/
+out/
+
+# Exclude development files
+*.user
+*.suo
+.vs/
+.vscode/
+*.log
+
+# Exclude test files
+*Tests.csproj
+*.test.cs
+
+# Exclude IDE files
+.idea/
+*.swp
+*.swo
+
+# Exclude node_modules (if any in project root)
+node_modules/
+
+# Exclude git
+.git/
+.gitignore
+
+# Exclude documentation
+*.md
+README*
