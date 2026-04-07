@@ -17,7 +17,7 @@ export default defineConfig({
           if (existsSync(src)) {
             copyFileSync(src, dest)
             console.log('Copied _redirects from', src, 'to', dest)
-            break
+            break 
           }
         }
       }
