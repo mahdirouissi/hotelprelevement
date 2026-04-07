@@ -120,7 +120,7 @@ const ServiceDashboard = () => {
                 <h1>📋 Espace Service</h1>
                 <div className="user-info">
                     <span className="role-badge role-service">{user?.username}</span>
-                    <button onClick={() => { localStorage.clear(); window.location.href = '/login'; }} className="btn-logout">
+                    <button onClick={() => { localStorage.clear(); window.location.hash = '#/login'; }} className="btn-logout">
                         Déconnexion
                     </button>
                 </div>

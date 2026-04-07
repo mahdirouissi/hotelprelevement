@@ -244,7 +244,7 @@ const Dashboard = () => {
                 <h1>Bienvenue, {user?.username}</h1>
                 <div className="user-info">
                     <span className="role-badge">{user?.role}</span>
-                    <button onClick={() => { localStorage.clear(); window.location.href = '/login'; }} className="btn-logout">
+                    <button onClick={() => { localStorage.clear(); window.location.hash = '#/login'; }} className="btn-logout">
                         Déconnexion
                     </button>
                 </div>
