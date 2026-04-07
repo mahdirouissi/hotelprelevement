@@ -110,6 +110,8 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+// Health check endpoint for Render
+app.MapGet("/health", () => Results.Ok(new { status = "healthy", timestamp = DateTime.UtcNow }));
 
 
 
