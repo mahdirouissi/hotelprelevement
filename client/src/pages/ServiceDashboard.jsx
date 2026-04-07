@@ -8,7 +8,7 @@ const ServiceDashboard = () => {
     const [requests, setRequests] = useState([]);
     const [loading, setLoading] = useState(true);
     const previousRequestsRef = useRef([]);
-    const [highlightedIds, setHighlightedIds] = useState(new Set());
+    const [toast, setToast] = useState(null);
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [expandedRows, setExpandedRows] = useState({});
     const [showDetailsModal, setShowDetailsModal] = useState(false);
@@ -58,11 +58,14 @@ const ServiceDashboard = () => {
                 return prev && prev.status !== r.status;
             });
             
-            // Highlight new and changed rows
-            if (newlyAdded.length > 0 || changed.length > 0) {
-                setHighlightedIds(new Set([...newlyAdded.map(r => r.id), ...changed.map(r => r.id)]));
-                // Remove highlight after 3 seconds
-                setTimeout(() => setHighlightedIds(new Set()), 3000);
+            // Show toast for new and changed rows
+            if (newlyAdded.length > 0) {
+                setToast(`Nouvelle demande #${newlyAdded[0].id} créée`);
+                setTimeout(() => setToast(null), 3000);
+            }
+            if (changed.length > 0) {
+                setToast(`Demande #${changed[0].id} - Statut changé`);
+                setTimeout(() => setToast(null), 3000);
             }
             
             previousRequestsRef.current = requestsData;
@@ -150,6 +153,11 @@ const ServiceDashboard = () => {
                 </div>
             </header>
 
+            {toast && (
+                <div className="toast">
+                    {toast}
+                </div>
+            )}
             <div className="dashboard-content">
                 <div className="actions">
                     <button onClick={() => setShowCreateModal(true)} className="btn-primary">
@@ -176,7 +184,7 @@ const ServiceDashboard = () => {
                                 <tbody>
                                     {requests.map(req => (
                                         <React.Fragment key={req.id}>
-                                            <tr className={highlightedIds.has(req.id) ? 'row-highlight' : ''}>
+                                            <tr onClick={() => toggleRow(req.id)} style={{cursor: 'pointer'}}>
                                                 <td>#{req.id}</td>
                                                 <td>{new Date(req.requestDate).toLocaleString()}</td>
                                                 <td>{req.serviceName}</td>
