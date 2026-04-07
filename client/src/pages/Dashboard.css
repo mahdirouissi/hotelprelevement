@@ -1911,3 +1911,40 @@ textarea:focus {
     color: #495057;
     margin-left: 5px;
 }
+
+/* Toast Notification Styles */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 16px 24px;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(102, 126, 234, 0.4);
+    z-index: 10000;
+    animation: slideIn 0.3s ease, fadeOut 0.5s ease 6.5s forwards;
+    max-width: 400px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
