@@ -58,27 +58,11 @@ const ServiceDashboard = () => {
                 return prev && prev.status !== r.status;
             });
             
-            if (newlyAdded.length > 0) {
-                // Show notification for new requests
-                if (Notification.permission === 'granted') {
-                    new Notification('Nouvelle demande', {
-                        body: `${newlyAdded.length} nouvelle(s) demande(s) została créée(s)`
-                    });
-                } else if (confirm(`${newlyAdded.length} nouvelle(s) demande(s) - Cliquez pour voir`)) {
-                    // User clicked OK
-                }
-            }
-            
-            if (changed.length > 0) {
-                if (Notification.permission === 'granted') {
-                    new Notification('Statut modifié', {
-                        body: `${changed.length} demande(s) a changé de statut`
-                    });
-                }
-                // Highlight changed rows
+            // Highlight new and changed rows
+            if (newlyAdded.length > 0 || changed.length > 0) {
                 setHighlightedIds(new Set([...newlyAdded.map(r => r.id), ...changed.map(r => r.id)]));
-                // Remove highlight after 5 seconds
-                setTimeout(() => setHighlightedIds(new Set()), 5000);
+                // Remove highlight after 3 seconds
+                setTimeout(() => setHighlightedIds(new Set()), 3000);
             }
             
             previousRequestsRef.current = requestsData;
