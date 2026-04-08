@@ -184,6 +184,17 @@ const EconomatDashboard = () => {
             // Fetch fresh data with product details
             const freshRequest = await requestService.getRequestById(request.id);
             setSelectedRequest(freshRequest);
+            
+            // Initialize productLinks with existing linked products
+            const existingLinks = {};
+            freshRequest.items.forEach(item => {
+                if (item.productId) {
+                    // Store as number for proper comparison with products array
+                    existingLinks[item.id] = item.productId;
+                }
+            });
+            setProductLinks(existingLinks);
+            
             setShowDetailsModal(true);
         } catch (err) {
             alert('Error loading request details');
@@ -627,7 +638,8 @@ const EconomatDashboard = () => {
                                 </thead>
                                 <tbody>
                                     {selectedRequest.items.map((item) => {
-                                        const selectedProduct = products.find(p => p.id == productLinks[item.id]);
+                                        const linkId = productLinks[item.id];
+                                        const selectedProduct = linkId ? products.find(p => p.id === linkId || p.id === parseInt(linkId)) : null;
                                         
                                         return (
                                             <tr key={item.id}>
@@ -649,7 +661,9 @@ const EconomatDashboard = () => {
                                                             <button 
                                                                 type="button"
                                                                 onClick={() => {
-                                                                    setProductLinks({ ...productLinks, [item.id]: '' });
+                                                                    const newLinks = { ...productLinks };
+                                                                    delete newLinks[item.id];
+                                                                    setProductLinks(newLinks);
                                                                     setProductSearchModal({ isOpen: true, itemId: item.id, search: '' });
                                                                 }}
                                                                 style={{
@@ -739,7 +753,7 @@ const EconomatDashboard = () => {
                                 <div
                                     key={p.id}
                                     onClick={() => {
-                                        setProductLinks({ ...productLinks, [productSearchModal.itemId]: p.id.toString() });
+                                        setProductLinks({ ...productLinks, [productSearchModal.itemId]: p.id });
                                         setProductSearchModal({ isOpen: false, itemId: null, search: '' });
                                     }}
                                     style={{
