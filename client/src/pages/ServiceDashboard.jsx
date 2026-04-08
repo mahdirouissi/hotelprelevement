@@ -266,7 +266,6 @@ const ServiceDashboard = () => {
                                         <tr>
                                             <th>ID</th>
                                             <th>Date</th>
-                                            <th>Service</th>
                                             <th>Statut</th>
                                             <th>Suivi</th>
                                         </tr>
@@ -277,7 +276,6 @@ const ServiceDashboard = () => {
                                                 <tr onClick={() => toggleRow(req.id)} style={{cursor: 'pointer'}}>
                                                     <td><span className="cell-mobile-label">ID: </span>#{req.id}</td>
                                                     <td><span className="cell-mobile-label">Date: </span>{new Date(req.requestDate).toLocaleDateString()}</td>
-                                                    <td className="cell-service"><span className="cell-mobile-label">Service: </span>{req.serviceName}</td>
                                                     <td>{getStatusBadge(req.status)}</td>
                                                     <td>
                                                         <button 
