@@ -368,7 +368,7 @@ const DirectorDashboard = () => {
                                             placeholder="Qté"
                                             min="1"
                                             value={item.quantity}
-                                            onChange={(e) => handleItemsChange(index, 'quantity', parseFloat(e.target.value) || 0)}
+                                            onChange={(e) => handleItemsChange(index, 'quantity', Math.max(1, parseFloat(e.target.value) || 1))}
                                             className="item-input-small"
                                         />
                                         <select
