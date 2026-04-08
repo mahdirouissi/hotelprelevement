@@ -2118,3 +2118,144 @@ textarea:focus {
         font-size: 8px !important;
     }
 }
+
+/* Responsive Table */
+.requests-table-wrapper {
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    margin-top: 20px !important;
+}
+
+.requests-table {
+    min-width: 600px !important;
+    width: 100% !important;
+}
+
+.requests-table th,
+.requests-table td {
+    padding: 12px 8px !important;
+    font-size: 13px !important;
+    white-space: nowrap !important;
+}
+
+.requests-table th {
+    background: #f8fafc !important;
+    font-weight: 600 !important;
+}
+
+/* Stats Grid Responsive */
+.stats-grid-responsive {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 12px;
+}
+
+@media (max-width: 768px) {
+    .stats-grid-responsive {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+    
+    .stat-card {
+        padding: 12px 8px;
+    }
+    
+    .stat-value {
+        font-size: 20px;
+    }
+    
+    .stat-label {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-grid-responsive {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile labels - hidden on desktop */
+.cell-mobile-label {
+    display: none;
+}
+
+/* Details button - optimized for touch */
+.btn-details {
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+
+.btn-details:active {
+    transform: scale(0.95);
+}
+
+/* Service cell - truncate long text */
+.cell-service {
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .requests-table-wrapper {
+        font-size: 12px !important;
+    }
+    
+    .requests-table th,
+    .requests-table td {
+        padding: 8px 6px !important;
+        font-size: 11px !important;
+    }
+    
+    .requests-table {
+        min-width: 500px !important;
+    }
+    
+    /* Show mobile labels on tablet */
+    .cell-mobile-label {
+        display: inline;
+        font-weight: 600;
+        color: #6366f1;
+        margin-right: 4px;
+    }
+    
+    .cell-service {
+        max-width: 80px;
+    }
+}
+
+@media (max-width: 480px) {
+    .requests-table th,
+    .requests-table td {
+        padding: 6px 4px !important;
+        font-size: 10px !important;
+    }
+    
+    .requests-table {
+        min-width: 400px !important;
+    }
+    
+    .btn-details {
+        padding: 5px 10px;
+        font-size: 10px;
+    }
+    
+    /* Full mobile labels on small screens */
+    .cell-mobile-label {
+        display: inline;
+        font-weight: 600;
+        color: #6366f1;
+        margin-right: 4px;
+    }
+}

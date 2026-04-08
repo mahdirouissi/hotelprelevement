@@ -224,7 +224,7 @@ const ServiceDashboard = () => {
 
             {/* Stats Section */}
             <div className="stats-section">
-                <div className="stats-grid">
+                <div className="stats-grid stats-grid-responsive">
                     {Object.entries(statusCounts).map(([status, count]) => (
                         <div key={status} className={`stat-card ${count > 0 ? 'stat-active' : ''}`}>
                             <div className="stat-value">{count}</div>
@@ -259,47 +259,40 @@ const ServiceDashboard = () => {
                     {requests.length === 0 ? (
                         <p className="no-data">Aucune demande</p>
                     ) : (
-                        <div className="requests-table">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Date</th>
-                                        <th>Service</th>
-                                        <th>Statut</th>
-                                        <th>Suivi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {requests.map(req => (
-                                        <React.Fragment key={req.id}>
-                                            <tr onClick={() => toggleRow(req.id)} style={{cursor: 'pointer'}}>
-                                                <td>#{req.id}</td>
-                                                <td>{new Date(req.requestDate).toLocaleString()}</td>
-                                                <td>{req.serviceName}</td>
-                                                <td>{getStatusBadge(req.status)}</td>
-                                                <td>
-                                                    <button 
-                                                        onClick={() => openDetailsModal(req)}
-                                                        style={{
-                                                            padding: '8px 16px',
-                                                            background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
-                                                            color: 'white',
-                                                            border: 'none',
-                                                            borderRadius: '6px',
-                                                            cursor: 'pointer',
-                                                            fontWeight: '600',
-                                                            fontSize: '13px'
-                                                        }}
-                                                    >
-                                                        📋 Détails
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        </React.Fragment>
-                                    ))}
-                                </tbody>
-                            </table>
+                        <div className="requests-table-wrapper">
+                            <div className="requests-table">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Date</th>
+                                            <th>Service</th>
+                                            <th>Statut</th>
+                                            <th>Suivi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {requests.map(req => (
+                                            <React.Fragment key={req.id}>
+                                                <tr onClick={() => toggleRow(req.id)} style={{cursor: 'pointer'}}>
+                                                    <td><span className="cell-mobile-label">ID: </span>#{req.id}</td>
+                                                    <td><span className="cell-mobile-label">Date: </span>{new Date(req.requestDate).toLocaleDateString()}</td>
+                                                    <td className="cell-service"><span className="cell-mobile-label">Service: </span>{req.serviceName}</td>
+                                                    <td>{getStatusBadge(req.status)}</td>
+                                                    <td>
+                                                        <button 
+                                                            onClick={() => openDetailsModal(req)}
+                                                            className="btn-details"
+                                                        >
+                                                            📋 Détails
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </React.Fragment>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     )}
                 </div>
