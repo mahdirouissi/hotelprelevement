@@ -489,12 +489,16 @@ const Dashboard = () => {
                                             onChange={(e) => updateItem(index, 'quantity', parseFloat(e.target.value))}
                                             required
                                         />
-                                        <input
-                                            type="text"
-                                            placeholder="Unité"
+                                        <select
                                             value={item.unit}
                                             onChange={(e) => updateItem(index, 'unit', e.target.value)}
-                                        />
+                                            required
+                                        >
+                                            <option value="">Unité</option>
+                                            <option value="KG">KG</option>
+                                            <option value="Litre">Litre</option>
+                                            <option value="Pièce">Pièce</option>
+                                        </select>
                                         {newRequest.items.length > 1 && (
                                             <button type="button" onClick={() => removeItem(index)} className="btn-remove">✕</button>
                                         )}

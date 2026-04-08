@@ -394,13 +394,17 @@ const ControlDashboard = () => {
                                             min="0"
                                             step="0.01"
                                         />
-                                        <input
-                                            type="text"
-                                            placeholder="Unité"
+                                        <select
                                             value={item.unit}
                                             onChange={(e) => handleItemsChange(index, 'unit', e.target.value)}
                                             className="item-input-small"
-                                        />
+                                            required
+                                        >
+                                            <option value="">Unité</option>
+                                            <option value="KG">KG</option>
+                                            <option value="Litre">Litre</option>
+                                            <option value="Pièce">Pièce</option>
+                                        </select>
                                         <button type="button" onClick={() => removeItem(index)} className="btn-remove">
                                             ✕
                                         </button>

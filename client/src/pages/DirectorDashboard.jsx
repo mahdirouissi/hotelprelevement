@@ -364,13 +364,17 @@ const DirectorDashboard = () => {
                                             onChange={(e) => handleItemsChange(index, 'quantity', parseFloat(e.target.value) || 0)}
                                             className="item-input-small"
                                         />
-                                        <input
-                                            type="text"
-                                            placeholder="Unité"
+                                        <select
                                             value={item.unit}
                                             onChange={(e) => handleItemsChange(index, 'unit', e.target.value)}
                                             className="item-input-small"
-                                        />
+                                            required
+                                        >
+                                            <option value="">Unité</option>
+                                            <option value="KG">KG</option>
+                                            <option value="Litre">Litre</option>
+                                            <option value="Pièce">Pièce</option>
+                                        </select>
                                         <button type="button" onClick={() => removeItem(index)} className="btn-remove">✕</button>
                                     </div>
                                 ))}
