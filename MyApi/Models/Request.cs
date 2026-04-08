@@ -63,6 +63,9 @@ public class RequestItem
     [Required(ErrorMessage = "La quantité est requise")]
     public decimal Quantity { get; set; }
     
+    // Quantité effectivement donnée par l'économat
+    public decimal? QuantiteDonne { get; set; }
+    
     [MaxLength(50)]
     public string Unit { get; set; } = string.Empty;
     

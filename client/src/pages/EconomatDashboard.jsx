@@ -22,6 +22,7 @@ const EconomatDashboard = () => {
     const [newProduct, setNewProduct] = useState({ code_Produit: '', designation: '' });
     const [productSearchModal, setProductSearchModal] = useState({ isOpen: false, itemId: null, search: '' });
     const [productSearchResults, setProductSearchResults] = useState([]);
+    const [quantitesDonne, setQuantitesDonne] = useState({});
     
     // Statistics modal state
     const [showStatsModal, setShowStatsModal] = useState(false);
@@ -136,18 +137,24 @@ const EconomatDashboard = () => {
         setNewProduct({ code_Produit: '', designation: '' });
         setProductSearchModal({ isOpen: false, itemId: null, search: '' });
         setProductSearchResults([]);
+        setQuantitesDonne({});
         try {
             // Fetch fresh request data with product details
             const freshRequest = await requestService.getRequestById(request.id);
             
             // Initialize productLinks with existing linked products
             const existingLinks = {};
+            const existingQuantites = {};
             freshRequest.items.forEach(item => {
                 if (item.productId) {
                     existingLinks[item.id] = item.productId;
                 }
+                if (item.quantiteDonne) {
+                    existingQuantites[item.id] = item.quantiteDonne;
+                }
             });
             setProductLinks(existingLinks);
+            setQuantitesDonne(existingQuantites);
             
             const productsData = await requestService.getProducts();
             setProducts(productsData);
@@ -175,7 +182,8 @@ const EconomatDashboard = () => {
         try {
             const links = Object.entries(productLinks).map(([itemId, productId]) => ({
                 requestItemId: parseInt(itemId),
-                productId: parseInt(productId)
+                productId: parseInt(productId),
+                quantiteDonne: quantitesDonne[itemId] || null
             }));
             
             if (links.length === 0) {
@@ -658,7 +666,8 @@ const EconomatDashboard = () => {
                                 <thead>
                                     <tr>
                                         <th>Article</th>
-                                        <th>Qté</th>
+                                        <th>Qté Demandée</th>
+                                        <th>Qté Donnée</th>
                                         <th>Rechercher produit</th>
                                     </tr>
                                 </thead>
@@ -671,6 +680,25 @@ const EconomatDashboard = () => {
                                             <tr key={item.id}>
                                                 <td>{item.productName}</td>
                                                 <td>{item.quantity} {item.unit}</td>
+                                                <td>
+                                                    <input
+                                                        type="number"
+                                                        min="0"
+                                                        step="0.01"
+                                                        value={quantitesDonne[item.id] || ''}
+                                                        onChange={(e) => setQuantitesDonne({
+                                                            ...quantitesDonne,
+                                                            [item.id]: parseFloat(e.target.value) || 0
+                                                        })}
+                                                        placeholder="0"
+                                                        style={{
+                                                            width: '80px',
+                                                            padding: '8px',
+                                                            borderRadius: '6px',
+                                                            border: '2px solid #e0e5ff'
+                                                        }}
+                                                    />
+                                                </td>
                                                 <td>
                                                     {selectedProduct ? (
                                                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -1054,7 +1082,8 @@ const EconomatDashboard = () => {
                             <thead>
                                 <tr>
                                     <th>Article</th>
-                                    <th>Qté</th>
+                                    <th>Qté Demandée</th>
+                                    <th>Qté Donnée</th>
                                     <th>Unité</th>
                                     <th>Produit lié</th>
                                 </tr>
@@ -1064,6 +1093,7 @@ const EconomatDashboard = () => {
                                     <tr key={item.id}>
                                         <td>{item.productName}</td>
                                         <td>{item.quantity}</td>
+                                        <td>{item.quantiteDonne !== null && item.quantiteDonne !== undefined ? item.quantiteDonne : '-'}</td>
                                         <td>{item.unit}</td>
                                         <td>
                                             {item.productId ? (

@@ -83,6 +83,7 @@ public class RequestItemResponseModel
     public int Id { get; set; }
     public string ProductName { get; set; } = string.Empty;
     public decimal Quantity { get; set; }
+    public decimal? QuantiteDonne { get; set; }
     public string Unit { get; set; } = string.Empty;
     
     // Optional linked product info
@@ -91,7 +92,7 @@ public class RequestItemResponseModel
     public string? ProductDesignation { get; set; }
 }
 
-// Model for finalizing a request with product links
+// Model for finalizing a request with product links and quantities
 public class FinalizeRequestModel
 {
     [Required(ErrorMessage = "Les liens de produits sont requis")]
@@ -105,6 +106,9 @@ public class RequestItemProductLink
     
     [Required(ErrorMessage = "L'ID du produit est requis")]
     public int ProductId { get; set; }
+    
+    // Quantité donnée par l'économat (optionnel pour la finale)
+    public decimal? QuantiteDonne { get; set; }
 }
 
 // Model to get available products for linking
