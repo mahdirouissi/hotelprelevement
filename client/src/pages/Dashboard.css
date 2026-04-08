@@ -2136,44 +2136,16 @@ textarea:focus {
 .requests-table td {
     padding: 12px 8px !important;
     font-size: 13px !important;
-    white-space: nowrap !important;
 }
 
 .requests-table th {
-    background: #f8fafc !important;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    color: white !important;
     font-weight: 600 !important;
 }
 
-/* Stats Grid Responsive */
-.stats-grid-responsive {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 12px;
-}
-
-@media (max-width: 768px) {
-    .stats-grid-responsive {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 8px;
-    }
-    
-    .stat-card {
-        padding: 12px 8px;
-    }
-    
-    .stat-value {
-        font-size: 20px;
-    }
-    
-    .stat-label {
-        font-size: 10px;
-    }
-}
-
-@media (max-width: 480px) {
-    .stats-grid-responsive {
-        grid-template-columns: repeat(2, 1fr);
-    }
+.requests-table td {
+    background: white !important;
 }
 
 /* Mobile labels - hidden on desktop */
