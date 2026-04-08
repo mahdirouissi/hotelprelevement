@@ -452,16 +452,17 @@ const EconomatDashboard = () => {
                     {requests.length === 0 ? (
                         <p className="no-data">Aucune demande</p>
                     ) : (
-                        <div className="requests-table">
-                            <table>
+                        <div className="requests-table-wrapper">
+                            <div className="requests-table">
+                                <table>
                                 <thead>
                                     <tr>
                                         <th onClick={() => handleSort('id')} className="sortable">ID {getSortIcon('id')}</th>
                                         <th onClick={() => handleSort('requestDate')} className="sortable">Date {getSortIcon('requestDate')}</th>
                                         <th>Service</th>
                                         <th onClick={() => handleSort('status')} className="sortable">Statut {getSortIcon('status')}</th>
-                                        <th>Actions</th>
                                         <th>Détails</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -473,44 +474,36 @@ const EconomatDashboard = () => {
                                                 <td>{req.serviceName}</td>
                                                 <td>{getStatusBadge(req.status)}</td>
                                             <td>
-                                                <button 
-                                                    onClick={() => openDetailsModal(req)}
-                                                    style={{
-                                                        padding: '8px 16px',
-                                                        background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
-                                                        color: 'white',
-                                                        border: 'none',
-                                                        borderRadius: '6px',
-                                                        cursor: 'pointer',
-                                                        fontWeight: '600',
-                                                        fontSize: '13px'
-                                                    }}
-                                                >
-                                                    📋 Détails
-                                                </button>
-                                            </td>
-                                            <td>
-                                                <div className="action-buttons">
-                                                    {getActions(req).length > 0 ? (
-                                                        getActions(req).map((action, idx) => (
-                                                            <button 
-                                                                key={idx}
-                                                                onClick={() => handleActionClick(req, action)}
-                                                                className={action.class}
-                                                            >
-                                                                {action.label}
-                                                            </button>
-                                                        ))
-                                                    ) : (
-                                                        <span style={{ color: '#999', fontSize: '12px' }}>-</span>
-                                                    )}
-                                                </div>
-                                            </td>
+                                                    <button 
+                                                        onClick={() => openDetailsModal(req)}
+                                                        className="btn-details"
+                                                    >
+                                                        📋 Détails
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <div className="action-buttons action-buttons-responsive">
+                                                        {getActions(req).length > 0 ? (
+                                                            getActions(req).map((action, idx) => (
+                                                                <button 
+                                                                    key={idx}
+                                                                    onClick={() => handleActionClick(req, action)}
+                                                                    className={`${action.class} btn-action-sm`}
+                                                                >
+                                                                    {action.label}
+                                                                </button>
+                                                            ))
+                                                        ) : (
+                                                            <span style={{ color: '#999', fontSize: '12px' }}>-</span>
+                                                        )}
+                                                    </div>
+                                                </td>
                                         </tr>
                                         </React.Fragment>
                                     ))}
                                 </tbody>
                             </table>
+                            </div>
                         </div>
                     )}
                 </div>
