@@ -18,6 +18,7 @@ const ControlDashboard = () => {
     const previousRequestsRef = useRef([]);
     const [toast, setToast] = useState(null);
     const [showDetailsModal, setShowDetailsModal] = useState(false);
+    const [showStats, setShowStats] = useState(true);
 
     useEffect(() => {
         loadData();
@@ -270,14 +271,24 @@ const ControlDashboard = () => {
 
             {/* Stats Section */}
             <div className="stats-section">
-                <div className="stats-grid">
-                    {Object.entries(statusCounts).map(([status, count]) => (
-                        <div key={status} className={`stat-card ${count > 0 ? 'stat-active' : ''}`}>
-                            <div className="stat-value">{count}</div>
-                            <div className="stat-label">{status}</div>
-                        </div>
-                    ))}
+                <div className="stats-toggle">
+                    <button 
+                        onClick={() => setShowStats(!showStats)} 
+                        className="btn-toggle-stats"
+                    >
+                        {showStats ? '▼' : '▶'} Stats
+                    </button>
                 </div>
+                {showStats && (
+                    <div className="stats-grid">
+                        {Object.entries(statusCounts).map(([status, count]) => (
+                            <div key={status} className={`stat-card ${count > 0 ? 'stat-active' : ''}`}>
+                                <div className="stat-value">{count}</div>
+                                <div className="stat-label">{status}</div>
+                            </div>
+                        ))}
+                    </div>
+                )}
             </div>
 
             <div className="dashboard-content">

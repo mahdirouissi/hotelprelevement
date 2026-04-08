@@ -2029,6 +2029,27 @@ textarea:focus {
     box-sizing: border-box !important;
 }
 
+.stats-toggle {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.btn-toggle-stats {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-toggle-stats:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
 .stats-grid {
     display: flex !important;
     flex-wrap: wrap !important;
