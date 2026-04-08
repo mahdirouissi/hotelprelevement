@@ -164,6 +164,50 @@ const ServiceDashboard = () => {
         return <span className={`status-badge ${info.class}`}>{info.label}</span>;
     };
 
+    // Calculate status counts
+    const statusCounts = {
+        'En attente': requests.filter(r => {
+            const s = r.statusText || String(r.status);
+            return s === 'Pending' || s === '0';
+        }).length,
+        'Validé Contrôle': requests.filter(r => {
+            const s = r.statusText || String(r.status);
+            return s === 'ControlValidated' || s === '1';
+        }).length,
+        'Modifié Contrôle': requests.filter(r => {
+            const s = r.statusText || String(r.status);
+            return s === 'ControlModified' || s === '2';
+        }).length,
+        'Bloqué Contrôle': requests.filter(r => {
+            const s = r.statusText || String(r.status);
+            return s === 'ControlBlocked' || s === '3';
+        }).length,
+        'Validé Directeur': requests.filter(r => {
+            const s = r.statusText || String(r.status);
+            return s === 'DirectorValidated' || s === '4';
+        }).length,
+        'Modifié Directeur': requests.filter(r => {
+            const s = r.statusText || String(r.status);
+            return s === 'DirectorModified' || s === '5';
+        }).length,
+        'Bloqué Directeur': requests.filter(r => {
+            const s = r.statusText || String(r.status);
+            return s === 'DirectorBlocked' || s === '6';
+        }).length,
+        'Approuvé': requests.filter(r => {
+            const s = r.statusText || String(r.status);
+            return s === 'Approved' || s === '7';
+        }).length,
+        'Rejeté': requests.filter(r => {
+            const s = r.statusText || String(r.status);
+            return s === 'Rejected' || s === '8';
+        }).length,
+        'Finalisé': requests.filter(r => {
+            const s = r.statusText || String(r.status);
+            return s === 'Finalized' || s === '9';
+        }).length,
+    };
+
     if (loading) return <div className="loading">Chargement...</div>;
 
     return (
@@ -177,6 +221,18 @@ const ServiceDashboard = () => {
                     </button>
                 </div>
             </header>
+
+            {/* Stats Section */}
+            <div className="stats-section">
+                <div className="stats-grid">
+                    {Object.entries(statusCounts).map(([status, count]) => (
+                        <div key={status} className={`stat-card ${count > 0 ? 'stat-active' : ''}`}>
+                            <div className="stat-value">{count}</div>
+                            <div className="stat-label">{status}</div>
+                        </div>
+                    ))}
+                </div>
+            </div>
 
             {toast && (
                 <div className="toast">

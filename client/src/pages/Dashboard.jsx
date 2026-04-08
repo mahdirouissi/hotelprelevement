@@ -286,6 +286,20 @@ const Dashboard = () => {
         return actions;
     };
 
+    // Calculate status counts
+    const statusCounts = {
+        'En attente Contrôle': requests.filter(r => String(r.status) === 'Pending' || String(r.status) === '0').length,
+        'Validé Contrôle': requests.filter(r => String(r.status) === 'ControlValidated' || String(r.status) === '1').length,
+        'Modifié Contrôle': requests.filter(r => String(r.status) === 'ControlModified' || String(r.status) === '2').length,
+        'Bloqué Contrôle': requests.filter(r => String(r.status) === 'ControlBlocked' || String(r.status) === '3').length,
+        'Validé Directeur': requests.filter(r => String(r.status) === 'DirectorValidated' || String(r.status) === '4').length,
+        'Modifié Directeur': requests.filter(r => String(r.status) === 'DirectorModified' || String(r.status) === '5').length,
+        'Bloqué Directeur': requests.filter(r => String(r.status) === 'DirectorBlocked' || String(r.status) === '6').length,
+        'Approuvé': requests.filter(r => String(r.status) === 'Approved' || String(r.status) === '7').length,
+        'Rejeté': requests.filter(r => String(r.status) === 'Rejected' || String(r.status) === '8').length,
+        'Finalisé': requests.filter(r => String(r.status) === 'Finalized' || String(r.status) === '9').length,
+    };
+
     if (loading) return <div className="loading">Chargement...</div>;
 
     return (
@@ -299,6 +313,18 @@ const Dashboard = () => {
                     </button>
                 </div>
             </header>
+
+            {/* Stats Section */}
+            <div className="stats-section">
+                <div className="stats-grid">
+                    {Object.entries(statusCounts).map(([status, count]) => (
+                        <div key={status} className={`stat-card ${count > 0 ? 'stat-active' : ''}`}>
+                            <div className="stat-value">{count}</div>
+                            <div className="stat-label">{status}</div>
+                        </div>
+                    ))}
+                </div>
+            </div>
 
             <div className="dashboard-content">
                 {(hasRole('Service') || hasRole('Admin')) && (

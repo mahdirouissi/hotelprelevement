@@ -198,15 +198,53 @@ const DirectorDashboard = () => {
 
     if (loading) return <div className="loading">Chargement...</div>;
 
-    // Calculate stats - handle both string and number (enum) status
-    const pendingCount = requests.filter(r => {
-        const s = r.statusText || String(r.status);
-        return s === 'ControlValidated' || s === 'DirectorModified';
-    }).length;
-    const processedCount = requests.filter(r => {
-        const s = r.statusText || String(r.status);
-        return ['DirectorValidated', 'DirectorModified', 'DirectorBlocked', 'Approved', 'Rejected'].includes(s);
-    }).length;
+    // Calculate status counts
+    const statusCounts = {
+        'En attente Contrôle': requests.filter(r => {
+            const s = r.statusText || String(r.status);
+            return s === 'Pending' || s === '0';
+        }).length,
+        'Validé Contrôle': requests.filter(r => {
+            const s = r.statusText || String(r.status);
+            return s === 'ControlValidated' || s === '1';
+        }).length,
+        'Modifié Contrôle': requests.filter(r => {
+            const s = r.statusText || String(r.status);
+            return s === 'ControlModified' || s === '2';
+        }).length,
+        'Bloqué Contrôle': requests.filter(r => {
+            const s = r.statusText || String(r.status);
+            return s === 'ControlBlocked' || s === '3';
+        }).length,
+        'En attente': requests.filter(r => {
+            const s = r.statusText || String(r.status);
+            return s === 'ControlValidated' || s === '1' || s === 'ControlModified' || s === '2';
+        }).length,
+        'Validé': requests.filter(r => {
+            const s = r.statusText || String(r.status);
+            return s === 'DirectorValidated' || s === '4';
+        }).length,
+        'Modifié': requests.filter(r => {
+            const s = r.statusText || String(r.status);
+            return s === 'DirectorModified' || s === '5';
+        }).length,
+        'Bloqué': requests.filter(r => {
+            const s = r.statusText || String(r.status);
+            return s === 'DirectorBlocked' || s === '6';
+        }).length,
+        'Approuvé': requests.filter(r => {
+            const s = r.statusText || String(r.status);
+            return s === 'Approved' || s === '7';
+        }).length,
+        'Rejeté': requests.filter(r => {
+            const s = r.statusText || String(r.status);
+            return s === 'Rejected' || s === '8';
+        }).length,
+        'Finalisé': requests.filter(r => {
+            const s = r.statusText || String(r.status);
+            return s === 'Finalized' || s === '9';
+        }).length,
+    };
 
     return (
         <div className="dashboard">
@@ -220,17 +258,19 @@ const DirectorDashboard = () => {
                 </div>
             </header>
 
-            <div className="dashboard-content">
-                <div className="stats-section">
-                    <div className="stat-card">
-                        <div className="stat-number">{pendingCount}</div>
-                        <div className="stat-label">En attente</div>
-                    </div>
-                    <div className="stat-card">
-                        <div className="stat-number">{processedCount}</div>
-                        <div className="stat-label">Traitées</div>
-                    </div>
+            {/* Stats Section */}
+            <div className="stats-section">
+                <div className="stats-grid">
+                    {Object.entries(statusCounts).map(([status, count]) => (
+                        <div key={status} className={`stat-card ${count > 0 ? 'stat-active' : ''}`}>
+                            <div className="stat-value">{count}</div>
+                            <div className="stat-label">{status}</div>
+                        </div>
+                    ))}
                 </div>
+            </div>
+
+            <div className="dashboard-content">
 
                 <div className="requests-section">
                     <h2>📋 Toutes les demandes</h2>
