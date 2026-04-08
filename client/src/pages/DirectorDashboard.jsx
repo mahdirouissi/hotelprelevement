@@ -277,65 +277,58 @@ const DirectorDashboard = () => {
                     {requests.length === 0 ? (
                         <p className="no-data">Aucune demande</p>
                     ) : (
-                        <div className="requests-table">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Date</th>
-                                        <th>Service</th>
-                                        <th>Statut</th>
-                                        <th>Actions</th>
-                                        <th>Détails</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {requests.map(req => (
-                                        <React.Fragment key={req.id}>
-                                            <tr>
-                                                <td>#{req.id}</td>
-                                                <td>{new Date(req.requestDate).toLocaleString()}</td>
-                                                <td>{req.serviceName}</td>
-                                                <td>{getStatusBadge(req.status)}</td>
-                                                <td>
-                                                    <div className="action-buttons">
-                                                        {getActions(req).length > 0 ? (
-                                                            getActions(req).map((action, idx) => (
-                                                                <button 
-                                                                    key={idx}
-                                                                    onClick={() => action.type === 'edit-items' ? openItemsModal(req) : openActionModal(req, action.type)}
-                                                                    className={action.class}
-                                                                >
-                                                                    {action.label}
-                                                                </button>
-                                                            ))
-                                                        ) : (
-                                                            <span style={{ color: '#999', fontSize: '12px' }}>-</span>
-                                                        )}
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <button 
-                                                        onClick={() => openDetailsModal(req)}
-                                                        style={{
-                                                            padding: '8px 16px',
-                                                            background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
-                                                            color: 'white',
-                                                            border: 'none',
-                                                            borderRadius: '6px',
-                                                            cursor: 'pointer',
-                                                            fontWeight: '600',
-                                                            fontSize: '13px'
-                                                        }}
-                                                    >
-                                                        📋 Détails
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        </React.Fragment>
-                                    ))}
-                                </tbody>
-                            </table>
+                        <div className="requests-table-wrapper">
+                            <div className="requests-table">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Date</th>
+                                            <th>Service</th>
+                                            <th>Statut</th>
+                                            <th>Détails</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {requests.map(req => (
+                                            <React.Fragment key={req.id}>
+                                                <tr>
+                                                    <td><span className="cell-mobile-label">ID: </span>#{req.id}</td>
+                                                    <td><span className="cell-mobile-label">Date: </span>{new Date(req.requestDate).toLocaleDateString()}</td>
+                                                    <td className="cell-service"><span className="cell-mobile-label">Service: </span>{req.serviceName}</td>
+                                                    <td>{getStatusBadge(req.status)}</td>
+                                                    <td>
+                                                        <button 
+                                                            onClick={() => openDetailsModal(req)}
+                                                            className="btn-details"
+                                                        >
+                                                            📋 Détails
+                                                        </button>
+                                                    </td>
+                                                    <td>
+                                                        <div className="action-buttons action-buttons-responsive">
+                                                            {getActions(req).length > 0 ? (
+                                                                getActions(req).map((action, idx) => (
+                                                                    <button 
+                                                                        key={idx}
+                                                                        onClick={() => action.type === 'edit-items' ? openItemsModal(req) : openActionModal(req, action.type)}
+                                                                        className={`${action.class} btn-action-sm`}
+                                                                    >
+                                                                        {action.label}
+                                                                    </button>
+                                                                ))
+                                                            ) : (
+                                                                <span style={{ color: '#999', fontSize: '12px' }}>-</span>
+                                                            )}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </React.Fragment>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     )}
                 </div>
