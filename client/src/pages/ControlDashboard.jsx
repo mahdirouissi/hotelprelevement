@@ -395,12 +395,11 @@ const ControlDashboard = () => {
                                             step="0.01"
                                         />
                                         <select
-                                            value={item.unit}
+                                            value={item.unit || 'KG'}
                                             onChange={(e) => handleItemsChange(index, 'unit', e.target.value)}
-                                            className="item-input-small"
+                                            className="item-input-small unit-select"
                                             required
                                         >
-                                            <option value="">Unité</option>
                                             <option value="KG">KG</option>
                                             <option value="Litre">Litre</option>
                                             <option value="Pièce">Pièce</option>

@@ -1950,8 +1950,8 @@ textarea:focus {
 }
 
 /* Unit Select Dropdown Styles */
-.item-row select {
-    padding: 12px 16px;
+.unit-select {
+    padding: 12px 36px 12px 14px;
     border: 2px solid #e0e5ff;
     border-radius: 10px;
     font-size: 14px;
@@ -1959,20 +1959,27 @@ textarea:focus {
     color: #1e293b;
     cursor: pointer;
     transition: all 0.2s ease;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23667eea' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    min-width: 100px;
+    font-weight: 600;
 }
 
-.item-row select:focus {
+.unit-select:focus {
     outline: none;
     border-color: #667eea;
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
 }
 
-.item-row select:hover {
+.unit-select:hover {
     border-color: #667eea;
 }
 
-.item-row select option {
-    padding: 10px;
+.unit-select option {
+    padding: 12px;
     background: white;
     color: #1e293b;
+    font-weight: 500;
 }

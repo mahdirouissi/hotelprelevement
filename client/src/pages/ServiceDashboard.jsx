@@ -255,11 +255,11 @@ const ServiceDashboard = () => {
                                                         required
                                                     />
                                                     <select
-                                                        value={item.unit}
+                                                        value={item.unit || 'KG'}
                                                         onChange={(e) => updateItem(index, 'unit', e.target.value)}
                                                         required
+                                                        className="unit-select"
                                                     >
-                                                        <option value="">Unité</option>
                                                         <option value="KG">KG</option>
                                                         <option value="Litre">Litre</option>
                                                         <option value="Pièce">Pièce</option>
