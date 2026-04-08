@@ -387,8 +387,10 @@ const ControlDashboard = () => {
                                             type="text"
                                             placeholder="Nom du produit"
                                             value={item.productName}
-                                            onChange={(e) => handleItemsChange(index, 'productName', e.target.value)}
+                                            readOnly
                                             className="item-input"
+                                            style={{ backgroundColor: '#f5f5f5' }}
+                                            title="Le nom du produit ne peut pas être modifié"
                                         />
                                         <input
                                             type="number"
@@ -409,14 +411,9 @@ const ControlDashboard = () => {
                                             <option value="Litre">Litre</option>
                                             <option value="Pièce">Pièce</option>
                                         </select>
-                                        <button type="button" onClick={() => removeItem(index)} className="btn-remove">
-                                            ✕
-                                        </button>
+                                        <span style={{ color: '#999', fontSize: '12px' }}>🔒</span>
                                     </div>
                                 ))}
-                                <button type="button" onClick={addItem} className="btn-add-item">
-                                    + Ajouter un article
-                                </button>
                             </div>
                             <div className="form-group">
                                 <label>Motif de modification (obligatoire)</label>
