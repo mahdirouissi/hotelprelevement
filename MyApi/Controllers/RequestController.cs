@@ -477,7 +477,7 @@ public class RequestController : ControllerBase
 
     // ========== FINALIZE REQUEST (with product links) ==========
     [HttpGet("products")]
-    [Authorize(Roles = Roles.Economat + "," + Roles.Admin)]
+    [Authorize(Roles = Roles.Service + "," + Roles.Economat + "," + Roles.Admin)]
     public async Task<ActionResult<IEnumerable<ProductListItem>>> GetAvailableProducts()
     {
         var products = await _context.Products
