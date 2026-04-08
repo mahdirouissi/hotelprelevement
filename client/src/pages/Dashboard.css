@@ -2028,7 +2028,7 @@ textarea:focus {
 
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    grid-template-columns: repeat(5, 1fr);
     gap: 12px;
     max-width: 1200px;
     margin: 0 auto;
@@ -2060,4 +2060,40 @@ textarea:focus {
     color: #64748b;
     margin-top: 4px;
     font-weight: 500;
+}
+
+/* Responsive Stats */
+@media (max-width: 1024px) {
+    .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .stats-section {
+        padding: 12px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+    
+    .stat-card {
+        padding: 8px;
+    }
+    
+    .stat-value {
+        font-size: 18px;
+    }
+    
+    .stat-label {
+        font-size: 9px;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
