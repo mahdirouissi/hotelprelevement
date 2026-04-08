@@ -625,6 +625,7 @@ const Dashboard = () => {
                                     <th>Article</th>
                                     <th>Qté</th>
                                     <th>Unité</th>
+                                    <th>Produit lié</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -633,6 +634,15 @@ const Dashboard = () => {
                                         <td>{item.productName}</td>
                                         <td>{item.quantity}</td>
                                         <td>{item.unit}</td>
+                                        <td>
+                                            {item.productId ? (
+                                                <span style={{ color: 'green', fontWeight: 'bold' }}>
+                                                    ✅ {item.productDesignation || item.productName}
+                                                </span>
+                                            ) : (
+                                                <span style={{ color: '#999' }}>—</span>
+                                            )}
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>

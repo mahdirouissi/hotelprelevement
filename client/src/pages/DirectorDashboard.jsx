@@ -448,7 +448,14 @@ const DirectorDashboard = () => {
                                         {selectedRequest.items.map((item, idx) => (
                                             <div key={idx} className="item-detail">
                                                 <span className="item-number">{idx + 1}</span>
-                                                <span className="item-name">{item.productName}</span>
+                                                <span className="item-name">
+                                                    {item.productName}
+                                                    {item.productId && (
+                                                        <span style={{ color: 'green', fontSize: '11px', marginLeft: '5px' }}>
+                                                            ✅ Lié
+                                                        </span>
+                                                    )}
+                                                </span>
                                                 <span className="item-qty">{item.quantity} {item.unit}</span>
                                             </div>
                                         ))}
