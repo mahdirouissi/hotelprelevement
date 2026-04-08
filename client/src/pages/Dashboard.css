@@ -1948,3 +1948,31 @@ textarea:focus {
         opacity: 0;
     }
 }
+
+/* Unit Select Dropdown Styles */
+.item-row select {
+    padding: 12px 16px;
+    border: 2px solid #e0e5ff;
+    border-radius: 10px;
+    font-size: 14px;
+    background: white;
+    color: #1e293b;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.item-row select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+}
+
+.item-row select:hover {
+    border-color: #667eea;
+}
+
+.item-row select option {
+    padding: 10px;
+    background: white;
+    color: #1e293b;
+}
