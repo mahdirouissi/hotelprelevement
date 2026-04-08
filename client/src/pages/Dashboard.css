@@ -2153,6 +2153,24 @@ textarea:focus {
     display: none;
 }
 
+/* Action buttons - responsive */
+.action-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.action-buttons-responsive {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.btn-action-sm {
+    padding: 6px 10px !important;
+    font-size: 11px !important;
+}
+
 /* Details button - optimized for touch */
 .btn-details {
     padding: 8px 16px;
@@ -2191,7 +2209,7 @@ textarea:focus {
     }
     
     .requests-table {
-        min-width: 500px !important;
+        min-width: 700px !important;
     }
     
     /* Show mobile labels on tablet */
@@ -2205,6 +2223,16 @@ textarea:focus {
     .cell-service {
         max-width: 80px;
     }
+    
+    .action-buttons-responsive {
+        flex-direction: column;
+        gap: 4px;
+    }
+    
+    .btn-action-sm {
+        padding: 4px 8px !important;
+        font-size: 10px !important;
+    }
 }
 
 @media (max-width: 480px) {
@@ -2215,7 +2243,7 @@ textarea:focus {
     }
     
     .requests-table {
-        min-width: 400px !important;
+        min-width: 600px !important;
     }
     
     .btn-details {
