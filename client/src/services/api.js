@@ -57,13 +57,15 @@ export const requestService = {
         return response.data;
     },
     createRequest: async (serviceName, items) => {
+        console.log('Creating request with:', { serviceName, items });
         // Map items to ensure ProductId is sent with correct casing
         const mappedItems = items.map(item => ({
-            ProductName: item.productName,
-            Quantity: item.quantity,
-            Unit: item.unit || 'KG',
-            ProductId: item.productId || null
+            ProductName: item.productName || item.ProductName || '',
+            Quantity: item.quantity || item.Quantity || 1,
+            Unit: item.unit || item.Unit || 'KG',
+            ProductId: item.productId || item.ProductId || null
         }));
+        console.log('Mapped items:', mappedItems);
         const response = await api.post('/request', { serviceName, items: mappedItems });
         return response.data;
     },

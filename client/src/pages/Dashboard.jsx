@@ -134,6 +134,7 @@ const Dashboard = () => {
                 ...item,
                 unit: item.unit || 'KG'
             }));
+            console.log('Submitting request:', { serviceName: newRequest.serviceName, items: itemsWithUnit });
             await requestService.createRequest(
                 newRequest.serviceName,
                 itemsWithUnit
