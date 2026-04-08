@@ -521,7 +521,14 @@ const ControlDashboard = () => {
                                                         </span>
                                                     )}
                                                 </span>
-                                                <span className="item-qty">{item.quantity} {item.unit}</span>
+                                                <span className="item-qty">
+                                                    {item.quantity} {item.unit}
+                                                    {item.quantiteDonne !== null && item.quantiteDonne !== undefined && (
+                                                        <span style={{ color: '#667eea', fontWeight: '600', marginLeft: '8px' }}>
+                                                            → Donné: {item.quantiteDonne} {item.unit}
+                                                        </span>
+                                                    )}
+                                                </span>
                                             </div>
                                         ))}
                                     </div>

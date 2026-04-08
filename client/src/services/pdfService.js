@@ -60,9 +60,10 @@ export const downloadPdf = (request) => {
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(9);
     doc.text('Article', 22, yPos + 5);
-    doc.text('Code', 75, yPos + 5);
-    doc.text('Désignation', 105, yPos + 5);
-    doc.text('Qté', 175, yPos + 5);
+    doc.text('Code', 65, yPos + 5);
+    doc.text('Désignation', 95, yPos + 5);
+    doc.text('Qté', 145, yPos + 5);
+    doc.text('Qté Donnée', 165, yPos + 5);
     
     yPos += 10;
     doc.setTextColor(0, 0, 0);
@@ -78,11 +79,13 @@ export const downloadPdf = (request) => {
       const code = item.productCode || item.product?.code_Produit || '-';
       const designation = item.productDesignation || item.product?.designation || '-';
       const quantite = `${item.quantity || 0} ${item.unit || ''}`;
+      const quantiteDonne = item.quantiteDonne ? `${item.quantiteDonne} ${item.unit || ''}` : '-';
       
-      doc.text(String(article).substring(0, 20), 22, yPos + 3);
-      doc.text(String(code).substring(0, 12), 75, yPos + 3);
-      doc.text(String(designation).substring(0, 30), 105, yPos + 3);
-      doc.text(quantite, 175, yPos + 3);
+      doc.text(String(article).substring(0, 18), 22, yPos + 3);
+      doc.text(String(code).substring(0, 10), 65, yPos + 3);
+      doc.text(String(designation).substring(0, 22), 95, yPos + 3);
+      doc.text(quantite, 145, yPos + 3);
+      doc.text(quantiteDonne, 165, yPos + 3);
       
       yPos += 8;
     });
