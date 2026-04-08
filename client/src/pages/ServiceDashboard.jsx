@@ -80,9 +80,14 @@ const ServiceDashboard = () => {
     const handleCreateRequest = async (e) => {
         e.preventDefault();
         try {
+            // Ensure all items have a unit (default to KG if empty)
+            const itemsWithUnit = newRequest.items.map(item => ({
+                ...item,
+                unit: item.unit || 'KG'
+            }));
             await requestService.createRequest(
                 user?.serviceName || user?.username || 'Service',
-                newRequest.items
+                itemsWithUnit
             );
             setShowCreateModal(false);
             setNewRequest({ serviceName: '', items: [{ productName: '', quantity: 1, unit: 'KG' }] });

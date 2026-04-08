@@ -128,8 +128,13 @@ const ControlDashboard = () => {
     const handleSaveItems = async (e) => {
         e.preventDefault();
         try {
-            // Validate items
-            const validItems = editingItems.filter(item => item.productName.trim() !== '');
+            // Validate items and ensure unit defaults to KG
+            const validItems = editingItems
+                .filter(item => item.productName.trim() !== '')
+                .map(item => ({
+                    ...item,
+                    unit: item.unit || 'KG'
+                }));
             if (validItems.length === 0) {
                 alert('Au moins un article est requis');
                 return;

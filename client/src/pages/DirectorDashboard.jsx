@@ -125,7 +125,12 @@ const DirectorDashboard = () => {
     const handleSaveItems = async (e) => {
         e.preventDefault();
         try {
-            const validItems = editingItems.filter(item => item.productName.trim() !== '');
+            const validItems = editingItems
+                .filter(item => item.productName.trim() !== '')
+                .map(item => ({
+                    ...item,
+                    unit: item.unit || 'KG'
+                }));
             if (validItems.length === 0) {
                 alert('Au moins un article est requis');
                 return;
