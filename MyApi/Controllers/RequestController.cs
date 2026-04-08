@@ -47,12 +47,20 @@ public class RequestController : ControllerBase
 
         foreach (var item in model.Items)
         {
-            request.Items.Add(new RequestItem
+            var requestItem = new RequestItem
             {
                 ProductName = item.ProductName,
                 Quantity = item.Quantity,
                 Unit = item.Unit
-            });
+            };
+            
+            // Link product if ProductId is provided
+            if (item.ProductId.HasValue)
+            {
+                requestItem.ProductId = item.ProductId;
+            }
+            
+            request.Items.Add(requestItem);
         }
 
         _context.Requests.Add(request);

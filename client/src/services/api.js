@@ -57,7 +57,14 @@ export const requestService = {
         return response.data;
     },
     createRequest: async (serviceName, items) => {
-        const response = await api.post('/request', { serviceName, items });
+        // Map items to ensure ProductId is sent with correct casing
+        const mappedItems = items.map(item => ({
+            ProductName: item.productName,
+            Quantity: item.quantity,
+            Unit: item.unit || 'KG',
+            ProductId: item.productId || null
+        }));
+        const response = await api.post('/request', { serviceName, items: mappedItems });
         return response.data;
     },
     

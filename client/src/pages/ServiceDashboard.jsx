@@ -81,10 +81,12 @@ const ServiceDashboard = () => {
     const handleCreateRequest = async (e) => {
         e.preventDefault();
         try {
-            // Ensure all items have a unit (default to KG if empty)
+            // Ensure all items have a unit (default to KG if empty) and include productId
             const itemsWithUnit = newRequest.items.map(item => ({
-                ...item,
-                unit: item.unit || 'KG'
+                ProductName: item.productName,
+                Quantity: item.quantity,
+                Unit: item.unit || 'KG',
+                ProductId: item.productId || null
             }));
             await requestService.createRequest(
                 user?.serviceName || user?.username || 'Service',
@@ -117,6 +119,7 @@ const ServiceDashboard = () => {
             updatedItems[index].productName = product.designation;
             updatedItems[index].productCode = product.code_Produit;
             updatedItems[index].productDesignation = product.designation;
+            updatedItems[index].productId = product.id;
         }
         setNewRequest({ ...newRequest, items: updatedItems });
     };

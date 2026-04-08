@@ -28,7 +28,7 @@ const Dashboard = () => {
     const [filterService, setFilterService] = useState('');
     
     const [newRequest, setNewRequest] = useState({
-        serviceId: '',
+        serviceName: '',
         items: [{ productName: '', quantity: 1, unit: 'KG' }]
     });
     const [products, setProducts] = useState([]);
@@ -135,11 +135,11 @@ const Dashboard = () => {
                 unit: item.unit || 'KG'
             }));
             await requestService.createRequest(
-                parseInt(newRequest.serviceId),
+                newRequest.serviceName,
                 itemsWithUnit
             );
             setShowCreateModal(false);
-            setNewRequest({ serviceId: '', items: [{ productName: '', quantity: 1, unit: 'KG' }] });
+            setNewRequest({ serviceName: '', items: [{ productName: '', quantity: 1, unit: 'KG' }] });
             loadData();
         } catch (err) {
             alert('Error creating request');
@@ -165,6 +165,7 @@ const Dashboard = () => {
             updatedItems[index].productName = product.designation;
             updatedItems[index].productCode = product.code_Produit;
             updatedItems[index].productDesignation = product.designation;
+            updatedItems[index].productId = product.id;
         }
         setNewRequest({ ...newRequest, items: updatedItems });
     };
@@ -485,13 +486,13 @@ const Dashboard = () => {
                             <div className="form-group">
                                 <label>Service</label>
                                 <select 
-                                    value={newRequest.serviceId}
-                                    onChange={(e) => setNewRequest({...newRequest, serviceId: e.target.value})}
+                                    value={newRequest.serviceName}
+                                    onChange={(e) => setNewRequest({...newRequest, serviceName: e.target.value})}
                                     required
                                 >
                                     <option value="">Sélectionner un service</option>
                                     {services.map(s => (
-                                        <option key={s.id} value={s.id}>{s.name}</option>
+                                        <option key={s.name} value={s.name}>{s.name}</option>
                                     ))}
                                 </select>
                             </div>

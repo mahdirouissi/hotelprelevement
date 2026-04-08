@@ -23,6 +23,9 @@ public class CreateRequestItemModel
     
     [MaxLength(50)]
     public string Unit { get; set; } = string.Empty;
+    
+    // Optional product link
+    public int? ProductId { get; set; }
 }
 
 // Modèle pour les actions (valider, modifier, bloquer) avec raison
