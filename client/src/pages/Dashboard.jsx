@@ -156,6 +156,12 @@ const Dashboard = () => {
     const updateItem = (index, field, value) => {
         const updatedItems = [...newRequest.items];
         updatedItems[index][field] = value;
+        // If user manually changes productName, clear the linked product
+        if (field === 'productName') {
+            updatedItems[index].productId = null;
+            updatedItems[index].productCode = '';
+            updatedItems[index].productDesignation = '';
+        }
         setNewRequest({ ...newRequest, items: updatedItems });
     };
 
