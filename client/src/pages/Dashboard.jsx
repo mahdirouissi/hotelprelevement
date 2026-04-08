@@ -31,6 +31,7 @@ const Dashboard = () => {
         serviceId: '',
         items: [{ productName: '', quantity: 1, unit: 'KG' }]
     });
+    const [products, setProducts] = useState([]);
     
     // Details modal
     const [showDetailsModal, setShowDetailsModal] = useState(false);
@@ -155,6 +156,16 @@ const Dashboard = () => {
     const updateItem = (index, field, value) => {
         const updatedItems = [...newRequest.items];
         updatedItems[index][field] = value;
+        setNewRequest({ ...newRequest, items: updatedItems });
+    };
+
+    const handleProductSelect = (index, product) => {
+        const updatedItems = [...newRequest.items];
+        if (product) {
+            updatedItems[index].productName = product.designation;
+            updatedItems[index].productCode = product.code_Produit;
+            updatedItems[index].productDesignation = product.designation;
+        }
         setNewRequest({ ...newRequest, items: updatedItems });
     };
 
@@ -284,7 +295,15 @@ const Dashboard = () => {
             <div className="dashboard-content">
                 {(hasRole('Service') || hasRole('Admin')) && (
                     <div className="actions">
-                        <button onClick={() => setShowCreateModal(true)} className="btn-primary">
+                        <button onClick={async () => {
+                            try {
+                                const productsData = await requestService.getProducts();
+                                setProducts(productsData);
+                            } catch (err) {
+                                console.error('Error loading products:', err);
+                            }
+                            setShowCreateModal(true);
+                        }} className="btn-primary">
                             Nouvelle Demande
                         </button>
                     </div>
@@ -480,6 +499,21 @@ const Dashboard = () => {
                                 <h4>Articles</h4>
                                 {newRequest.items.map((item, index) => (
                                     <div key={index} className="item-row">
+                                        <select
+                                            value={item.productCode || ''}
+                                            onChange={(e) => {
+                                                const product = products.find(p => p.code_Produit === e.target.value);
+                                                handleProductSelect(index, product);
+                                            }}
+                                            className="product-select"
+                                        >
+                                            <option value="">Sélectionner un produit</option>
+                                            {products.map(product => (
+                                                <option key={product.code_Produit} value={product.code_Produit}>
+                                                    {product.designation}
+                                                </option>
+                                            ))}
+                                        </select>
                                         <input
                                             type="text"
                                             placeholder="Nom du produit"

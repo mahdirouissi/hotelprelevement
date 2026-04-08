@@ -30,6 +30,7 @@ const ServiceDashboard = () => {
         serviceName: user?.serviceName || user?.username || '',
         items: [{ productName: '', quantity: 1, unit: 'KG' }]
     });
+    const [products, setProducts] = useState([]);
 
     useEffect(() => {
         loadData();
@@ -110,6 +111,16 @@ const ServiceDashboard = () => {
         setNewRequest({ ...newRequest, items: updatedItems });
     };
 
+    const handleProductSelect = (index, product) => {
+        const updatedItems = [...newRequest.items];
+        if (product) {
+            updatedItems[index].productName = product.designation;
+            updatedItems[index].productCode = product.code_Produit;
+            updatedItems[index].productDesignation = product.designation;
+        }
+        setNewRequest({ ...newRequest, items: updatedItems });
+    };
+
     const removeItem = (index) => {
         const updatedItems = newRequest.items.filter((_, i) => i !== index);
         setNewRequest({ ...newRequest, items: updatedItems });
@@ -165,7 +176,15 @@ const ServiceDashboard = () => {
             )}
             <div className="dashboard-content">
                 <div className="actions">
-                    <button onClick={() => setShowCreateModal(true)} className="btn-primary">
+                    <button onClick={async () => {
+                        try {
+                            const productsData = await requestService.getProducts();
+                            setProducts(productsData);
+                        } catch (err) {
+                            console.error('Error loading products:', err);
+                        }
+                        setShowCreateModal(true);
+                    }} className="btn-primary">
                         ➕ Nouvelle Demande
                     </button>
                 </div>
@@ -243,6 +262,21 @@ const ServiceDashboard = () => {
                                         <div key={index} className="item-card">
                                             <div className="item-number">{index + 1}</div>
                                             <div className="item-fields">
+                                                <select
+                                                    value={item.productCode || ''}
+                                                    onChange={(e) => {
+                                                        const product = products.find(p => p.code_Produit === e.target.value);
+                                                        handleProductSelect(index, product);
+                                                    }}
+                                                    className="product-select"
+                                                >
+                                                    <option value="">Sélectionner un produit</option>
+                                                    {products.map(product => (
+                                                        <option key={product.code_Produit} value={product.code_Produit}>
+                                                            {product.designation}
+                                                        </option>
+                                                    ))}
+                                                </select>
                                                 <input
                                                     type="text"
                                                     placeholder="Nom du produit"
