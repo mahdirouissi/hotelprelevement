@@ -131,12 +131,23 @@ const EconomatDashboard = () => {
 
     const openFinalizeModal = async (request) => {
         setSelectedRequest(request);
-        setProductLinks({});
         setShowCreateProduct(false);
         setNewProduct({ code_Produit: '', designation: '' });
         setProductSearchModal({ isOpen: false, itemId: null, search: '' });
         setProductSearchResults([]);
         try {
+            // Fetch fresh request data with product details
+            const freshRequest = await requestService.getRequestById(request.id);
+            
+            // Initialize productLinks with existing linked products
+            const existingLinks = {};
+            freshRequest.items.forEach(item => {
+                if (item.productId) {
+                    existingLinks[item.id] = item.productId;
+                }
+            });
+            setProductLinks(existingLinks);
+            
             const productsData = await requestService.getProducts();
             setProducts(productsData);
             setShowFinalizeModal(true);
