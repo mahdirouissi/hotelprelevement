@@ -9,16 +9,13 @@ export default defineConfig({
     {
       name: 'copy-redirects',
       closeBundle() {
-        // Try different source locations for _redirects file
-        const sources = ['./_redirects', './client/_redirects', './client/public/_redirects']
+        // Copy _redirects from public folder to dist
+        const src = './public/_redirects'
         const dest = './dist/_redirects'
         
-        for (const src of sources) {
-          if (existsSync(src)) {
-            copyFileSync(src, dest)
-            console.log('Copied _redirects from', src, 'to', dest)
-            break 
-          }
+        if (existsSync(src)) {
+          copyFileSync(src, dest)
+          console.log('Copied _redirects from', src, 'to', dest)
         }
       }
     }
