@@ -116,7 +116,7 @@ const ControlDashboard = () => {
     };
 
     const addItem = () => {
-        setEditingItems([...editingItems, { productName: '', quantity: 1, unit: '' }]);
+        setEditingItems([...editingItems, { productName: '', quantity: 1, unit: 'KG' }]);
     };
 
     const removeItem = (index) => {

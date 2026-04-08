@@ -28,7 +28,7 @@ const ServiceDashboard = () => {
     
     const [newRequest, setNewRequest] = useState({
         serviceName: user?.serviceName || user?.username || '',
-        items: [{ productName: '', quantity: 1, unit: '' }]
+        items: [{ productName: '', quantity: 1, unit: 'KG' }]
     });
 
     useEffect(() => {
@@ -85,7 +85,7 @@ const ServiceDashboard = () => {
                 newRequest.items
             );
             setShowCreateModal(false);
-            setNewRequest({ serviceName: '', items: [{ productName: '', quantity: 1, unit: '' }] });
+            setNewRequest({ serviceName: '', items: [{ productName: '', quantity: 1, unit: 'KG' }] });
             loadData();
         } catch (err) {
             alert('Error creating request');
@@ -95,7 +95,7 @@ const ServiceDashboard = () => {
     const addItem = () => {
         setNewRequest({
             ...newRequest,
-            items: [...newRequest.items, { productName: '', quantity: 1, unit: '' }]
+            items: [...newRequest.items, { productName: '', quantity: 1, unit: 'KG' }]
         });
     };
 

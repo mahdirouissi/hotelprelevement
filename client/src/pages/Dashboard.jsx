@@ -29,7 +29,7 @@ const Dashboard = () => {
     
     const [newRequest, setNewRequest] = useState({
         serviceId: '',
-        items: [{ productName: '', quantity: 1, unit: '' }]
+        items: [{ productName: '', quantity: 1, unit: 'KG' }]
     });
     
     // Details modal
@@ -133,7 +133,7 @@ const Dashboard = () => {
                 newRequest.items
             );
             setShowCreateModal(false);
-            setNewRequest({ serviceId: '', items: [{ productName: '', quantity: 1, unit: '' }] });
+            setNewRequest({ serviceId: '', items: [{ productName: '', quantity: 1, unit: 'KG' }] });
             loadData();
         } catch (err) {
             alert('Error creating request');
@@ -143,7 +143,7 @@ const Dashboard = () => {
     const addItem = () => {
         setNewRequest({
             ...newRequest,
-            items: [...newRequest.items, { productName: '', quantity: 1, unit: '' }]
+            items: [...newRequest.items, { productName: '', quantity: 1, unit: 'KG' }]
         });
     };
 
