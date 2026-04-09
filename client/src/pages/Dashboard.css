@@ -579,6 +579,197 @@
     }
 }
 
+/* Admin Dashboard Styles */
+.admin-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 10px;
+}
+
+.admin-tab {
+    padding: 12px 24px;
+    border: none;
+    background: transparent;
+    color: #666;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px 8px 0 0;
+    transition: all 0.3s;
+}
+
+.admin-tab:hover {
+    background: #f3f4f6;
+}
+
+.admin-tab.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.admin-section {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.section-header h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+}
+
+/* Stats Detail Card */
+.stats-detail-card {
+    background: linear-gradient(135deg, #f8f9ff 0%, #f0f4ff 100%);
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 20px;
+    border: 1px solid #e0e5ff;
+}
+
+.stats-detail-card h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 15px;
+}
+
+/* Bar Chart */
+.bar-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.bar-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+}
+
+.bar-label span:first-child {
+    font-weight: 600;
+    color: #475569;
+}
+
+.bar-label span:last-child {
+    color: #666;
+}
+
+.bar-container {
+    height: 24px;
+    background: #e5e7eb;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.bar-fill {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 0.5s ease-in-out;
+}
+
+/* Processing Stats */
+.processing-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.processing-stat {
+    text-align: center;
+    padding: 15px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.proc-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: #667eea;
+}
+
+.proc-label {
+    font-size: 12px;
+    color: #666;
+    margin-top: 4px;
+}
+
+/* Responsive Admin */
+@media (max-width: 768px) {
+    .admin-tabs {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .admin-tab {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+    
+    .processing-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .processing-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .proc-value {
+        font-size: 22px;
+    }
+}
+
+    /* Service Dashboard Specific */
+    .dashboard-content .actions {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .btn-primary {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .requests-table-wrapper {
+        margin: 0 -10px;
+        padding: 0 10px;
+    }
+    
+    .status-badge {
+        font-size: 10px;
+        padding: 4px 8px;
+    }
+
+
 /* Statistics Modal Responsive */
 @media (max-width: 768px) {
     .modal-content[style*="maxWidth: 700px"],
