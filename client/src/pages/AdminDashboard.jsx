@@ -88,19 +88,32 @@ const AdminDashboard = () => {
     const handleCreateUser = async (e) => {
         e.preventDefault();
         try {
-            await authService.register(
-                newUser.username,
-                newUser.email,
-                newUser.password,
-                newUser.password,
-                newUser.role
-            );
-            alert('Utilisateur créé avec succès!');
+            if (editingUser) {
+                // Update existing user
+                await authService.updateUser(editingUser.id, {
+                    username: editingUser.username,
+                    email: editingUser.email,
+                    role: editingUser.role,
+                    password: editingUser.password || null
+                });
+                alert('Utilisateur modifié avec succès!');
+            } else {
+                // Create new user
+                await authService.register(
+                    newUser.username,
+                    newUser.email,
+                    newUser.password,
+                    newUser.password,
+                    newUser.role
+                );
+                alert('Utilisateur créé avec succès!');
+            }
             setShowUserModal(false);
+            setEditingUser(null);
             setNewUser({ username: '', email: '', password: '', role: 'Service' });
             loadUsers();
         } catch (err) {
-            alert('Erreur: ' + (err.response?.data?.message || 'Erreur lors de la création'));
+            alert('Erreur: ' + (err.response?.data?.message || 'Erreur lors de la sauvegarde'));
         }
     };
 
@@ -379,6 +392,17 @@ const AdminDashboard = () => {
                                         value={newUser.password}
                                         onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
                                         required
+                                    />
+                                </div>
+                            )}
+                            {editingUser && (
+                                <div className="form-group">
+                                    <label>Nouveau mot de passe (laisser vide pour garder l'actuel)</label>
+                                    <input
+                                        type="password"
+                                        placeholder="Nouveau mot de passe"
+                                        value={editingUser.password || ''}
+                                        onChange={(e) => setEditingUser({ ...editingUser, password: e.target.value })}
                                     />
                                 </div>
                             )}

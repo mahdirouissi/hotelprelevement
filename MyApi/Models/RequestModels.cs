@@ -119,6 +119,23 @@ public class ProductListItem
     public string Designation { get; set; } = string.Empty;
 }
 
+// Model to update a user
+public class UpdateUserModel
+{
+    [Required(ErrorMessage = "Le nom d'utilisateur est requis")]
+    public string Username { get; set; } = string.Empty;
+    
+    [Required(ErrorMessage = "L'email est requis")]
+    [EmailAddress]
+    public string Email { get; set; } = string.Empty;
+    
+    [MinLength(6)]
+    public string? Password { get; set; }
+    
+    [Required(ErrorMessage = "Le rôle est requis")]
+    public string Role { get; set; } = string.Empty;
+}
+
 // Model to create a new product
 public class CreateProductModel
 {

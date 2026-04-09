@@ -103,6 +103,37 @@ public class AuthController : ControllerBase
         return Ok(users);
     }
 
+    [HttpPut("users/{id}")]
+    [Authorize(Roles = Roles.Admin)]
+    public async Task<ActionResult> UpdateUser(int id, [FromBody] UpdateUserModel model)
+    {
+        var user = await _context.Users.FindAsync(id);
+        if (user == null)
+            return NotFound(new { message = "Utilisateur non trouvé" });
+
+        // Check if username is taken by another user
+        if (await _context.Users.AnyAsync(u => u.Username == model.Username && u.Id != id))
+            return BadRequest(new { message = "Ce nom d'utilisateur est déjà utilisé" });
+
+        // Check if email is taken by another user
+        if (await _context.Users.AnyAsync(u => u.Email == model.Email && u.Id != id))
+            return BadRequest(new { message = "Cet email est déjà utilisé" });
+
+        user.Username = model.Username;
+        user.Email = model.Email;
+        user.Role = model.Role;
+
+        // Only update password if provided
+        if (!string.IsNullOrEmpty(model.Password))
+        {
+            user.PasswordHash = HashPassword(model.Password);
+        }
+
+        await _context.SaveChangesAsync();
+
+        return Ok(new { message = "Utilisateur mis à jour avec succès" });
+    }
+
     private string GenerateJwtToken(UserModel user)
     {
         var jwtSettings = _configuration.GetSection("Jwt");
