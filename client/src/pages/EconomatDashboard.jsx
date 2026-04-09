@@ -1058,89 +1058,124 @@ const EconomatDashboard = () => {
 
             {/* Details Modal */}
             {showDetailsModal && selectedRequest && (
-                <div className="modal">
-                    <div className="modal-content" style={{ maxWidth: '600px' }}>
-                        <h3>📋 Détails de la demande #{selectedRequest.id}</h3>
-                        
-                        <div style={{ marginBottom: '20px' }}>
-                            <div style={{ marginBottom: '10px' }}>
-                                <strong>Service:</strong> {selectedRequest.serviceName}
-                            </div>
-                            <div style={{ marginBottom: '10px' }}>
-                                <strong>Demandeur:</strong> {selectedRequest.requestedByUserName}
-                            </div>
-                            <div style={{ marginBottom: '10px' }}>
-                                <strong>Date:</strong> {new Date(selectedRequest.requestDate).toLocaleString()}
-                            </div>
-                            <div style={{ marginBottom: '10px' }}>
-                                <strong>Statut:</strong> {getStatusBadge(selectedRequest.status)}
-                            </div>
+                <div className="modal" onClick={() => { setShowDetailsModal(false); setSelectedRequest(null); }}>
+                    <div className="modal-content details-modal" onClick={(e) => e.stopPropagation()}>
+                        <div className="modal-header">
+                            <h3>📋 Demande #{selectedRequest.id}</h3>
+                            <button className="modal-close" onClick={() => { setShowDetailsModal(false); setSelectedRequest(null); }}>✕</button>
                         </div>
-
-                        <h4 style={{ marginBottom: '10px' }}>Articles demandés:</h4>
-                        <table className="items-table" style={{ marginBottom: '20px' }}>
-                            <thead>
-                                <tr>
-                                    <th>Article</th>
-                                    <th>Qté Demandée</th>
-                                    <th>Qté Donnée</th>
-                                    <th>Unité</th>
-                                    <th>Produit lié</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {selectedRequest.items.map((item) => (
-                                    <tr key={item.id}>
-                                        <td>{item.productName}</td>
-                                        <td>{item.quantity}</td>
-                                        <td>{item.quantiteDonne !== null && item.quantiteDonne !== undefined ? item.quantiteDonne : '-'}</td>
-                                        <td>{item.unit}</td>
-                                        <td>
-                                            {item.productId ? (
-                                                <span style={{ color: '#28a745' }}>
-                                                    {item.productCode} - {item.productDesignation}
+                        <div className="details-content">
+                            <div className="detail-card">
+                                <div className="detail-card-header">
+                                    <span className="detail-icon">🏢</span>
+                                    <span>Informations</span>
+                                </div>
+                                <div className="detail-card-body">
+                                    <div className="detail-row">
+                                        <span className="detail-label">Service</span>
+                                        <span className="detail-value">{selectedRequest.serviceName}</span>
+                                    </div>
+                                    <div className="detail-row">
+                                        <span className="detail-label">Demandeur</span>
+                                        <span className="detail-value">{selectedRequest.requestedByUserName}</span>
+                                    </div>
+                                    <div className="detail-row">
+                                        <span className="detail-label">Date</span>
+                                        <span className="detail-value">{new Date(selectedRequest.requestDate).toLocaleString()}</span>
+                                    </div>
+                                    <div className="detail-row">
+                                        <span className="detail-label">Statut</span>
+                                        <span className="detail-value">{getStatusBadge(selectedRequest.status)}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div className="detail-card">
+                                <div className="detail-card-header">
+                                    <span className="detail-icon">📦</span>
+                                    <span>Articles ({selectedRequest.items.length})</span>
+                                </div>
+                                <div className="detail-card-body">
+                                    <div className="items-list">
+                                        {selectedRequest.items.map((item, idx) => (
+                                            <div key={idx} className="item-detail">
+                                                <span className="item-number">{idx + 1}</span>
+                                                <span className="item-name">
+                                                    {item.productName}
+                                                    {item.productId && (
+                                                        <span style={{ color: 'green', fontSize: '11px', marginLeft: '5px' }}>
+                                                            ✅ Lié: {item.productCode}
+                                                        </span>
+                                                    )}
                                                 </span>
-                                            ) : (
-                                                <span style={{ color: '#999' }}>-</span>
-                                            )}
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-
-                        {/* Workflow History */}
-                        <div style={{ marginBottom: '20px' }}>
-                            <h4 style={{ marginBottom: '10px' }}>Historique:</h4>
-                            
-                            {/* Control Stage */}
-                            {selectedRequest.controlBy && (
-                                <div style={{ marginBottom: '10px', padding: '10px', background: '#f8f9fa', borderRadius: '4px' }}>
-                                    <strong>🔍 Contrôle:</strong> {selectedRequest.controlBy}
-                                    {selectedRequest.controlDate && <span style={{ fontSize: '12px', color: '#666' }}> ({new Date(selectedRequest.controlDate).toLocaleString()})</span>}
-                                    {selectedRequest.controlReason && <div style={{ fontSize: '13px', marginTop: '4px' }}><em>Motif: {selectedRequest.controlReason}</em></div>}
+                                                <span className="item-qty">
+                                                    {item.quantity} {item.unit}
+                                                    {item.quantiteDonne !== null && item.quantiteDonne !== undefined && (
+                                                        <span style={{ color: '#667eea', fontWeight: '600', marginLeft: '8px' }}>
+                                                            → Donné: {item.quantiteDonne} {item.unit}
+                                                        </span>
+                                                    )}
+                                                </span>
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
-                            )}
+                            </div>
                             
-                            {/* Director Stage */}
-                            {selectedRequest.directorBy && (
-                                <div style={{ marginBottom: '10px', padding: '10px', background: '#f8f9fa', borderRadius: '4px' }}>
-                                    <strong>👔 Direction:</strong> {selectedRequest.directorBy}
-                                    {selectedRequest.directorDate && <span style={{ fontSize: '12px', color: '#666' }}> ({new Date(selectedRequest.directorDate).toLocaleString()})</span>}
-                                    {selectedRequest.directorReason && <div style={{ fontSize: '13px', marginTop: '4px' }}><em>Motif: {selectedRequest.directorReason}</em></div>}
+                            <div className="detail-card">
+                                <div className="detail-card-header">
+                                    <span className="detail-icon">📊</span>
+                                    <span>Suivi du traitement</span>
                                 </div>
-                            )}
-                            
-                            {/* Economat Stage */}
-                            {selectedRequest.economatBy && (
-                                <div style={{ marginBottom: '10px', padding: '10px', background: '#f8f9fa', borderRadius: '4px' }}>
-                                    <strong>📦 Économat:</strong> {selectedRequest.economatBy}
-                                    {selectedRequest.economatDate && <span style={{ fontSize: '12px', color: '#666' }}> ({new Date(selectedRequest.economatDate).toLocaleString()})</span>}
-                                    {selectedRequest.economatReason && <div style={{ fontSize: '13px', marginTop: '4px' }}><em>Motif: {selectedRequest.economatReason}</em></div>}
+                                <div className="detail-card-body">
+                                    <div className="workflow-timeline-modern">
+                                        {selectedRequest.controlBy ? (
+                                            <div className="timeline-item completed">
+                                                <div className="timeline-dot"></div>
+                                                <div className="timeline-content">
+                                                    <span className="timeline-title">Contrôle</span>
+                                                    <span className="timeline-user">{selectedRequest.controlBy}</span>
+                                                    {selectedRequest.controlDate && <span className="timeline-date">{new Date(selectedRequest.controlDate).toLocaleString()}</span>}
+                                                    {selectedRequest.controlReason && <span className="timeline-reason">{selectedRequest.controlReason}</span>}
+                                                </div>
+                                            </div>
+                                        ) : (
+                                            <div className="timeline-item pending">
+                                                <div className="timeline-dot"></div>
+                                                <div className="timeline-content">
+                                                    <span className="timeline-title">Contrôle</span>
+                                                    <span className="timeline-pending">En attente...</span>
+                                                </div>
+                                            </div>
+                                        )}
+                                        
+                                        {selectedRequest.directorBy ? (
+                                            <div className="timeline-item completed">
+                                                <div className="timeline-dot"></div>
+                                                <div className="timeline-content">
+                                                    <span className="timeline-title">Directeur</span>
+                                                    <span className="timeline-user">{selectedRequest.directorBy}</span>
+                                                    {selectedRequest.directorDate && <span className="timeline-date">{new Date(selectedRequest.directorDate).toLocaleString()}</span>}
+                                                    {selectedRequest.directorReason && <span className="timeline-reason">{selectedRequest.directorReason}</span>}
+                                                </div>
+                                            </div>
+                                        ) : null}
+                                        
+                                        {selectedRequest.economatBy ? (
+                                            <div className={`timeline-item ${selectedRequest.status === 'Finalized' || selectedRequest.status === 9 ? 'completed' : 'rejected'}`}>
+                                                <div className="timeline-dot"></div>
+                                                <div className="timeline-content">
+                                                    <span className="timeline-title">Économat</span>
+                                                    <span className="timeline-user">{selectedRequest.economatBy}</span>
+                                                    {selectedRequest.economatDate && <span className="timeline-date">{new Date(selectedRequest.economatDate).toLocaleString()}</span>}
+                                                    {selectedRequest.economatReason && <span className="timeline-reason">{selectedRequest.economatReason}</span>}
+                                                </div>
+                                            </div>
+                                        ) : null}
+                                    </div>
                                 </div>
-                            )}
+                            </div>
                         </div>
-
                         <div className="modal-actions">
                             {(selectedRequest.status === 'Finalized' || selectedRequest.status === 9) && (
                                 <button 
@@ -1152,7 +1187,7 @@ const EconomatDashboard = () => {
                                     📄 Télécharger PDF
                                 </button>
                             )}
-                            <button type="button" onClick={() => setShowDetailsModal(false)} className="btn-secondary">
+                            <button type="button" onClick={() => setShowDetailsModal(false)} className="btn-cancel">
                                 Fermer
                             </button>
                         </div>
