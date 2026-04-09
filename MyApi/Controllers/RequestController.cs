@@ -704,6 +704,7 @@ public class RequestController : ControllerBase
                 Id = i.Id,
                 ProductName = i.ProductName,
                 Quantity = i.Quantity,
+                QuantiteDonne = i.QuantiteDonne,
                 Unit = i.Unit,
                 ProductId = i.ProductId,
                 ProductCode = i.Product?.Code_Produit,
