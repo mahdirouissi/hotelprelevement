@@ -354,8 +354,8 @@ const AdminDashboard = () => {
                                 <label>Nom d'utilisateur</label>
                                 <input
                                     type="text"
-                                    value={newUser.username}
-                                    onChange={(e) => setNewUser({ ...newUser, username: e.target.value })}
+                                    value={editingUser ? editingUser.username : newUser.username}
+                                    onChange={(e) => editingUser ? setEditingUser({ ...editingUser, username: e.target.value }) : setNewUser({ ...newUser, username: e.target.value })}
                                     required
                                 />
                             </div>
@@ -363,25 +363,27 @@ const AdminDashboard = () => {
                                 <label>Email</label>
                                 <input
                                     type="email"
-                                    value={newUser.email}
-                                    onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
+                                    value={editingUser ? editingUser.email : newUser.email}
+                                    onChange={(e) => editingUser ? setEditingUser({ ...editingUser, email: e.target.value }) : setNewUser({ ...newUser, email: e.target.value })}
                                     required
                                 />
                             </div>
-                            <div className="form-group">
-                                <label>Mot de passe</label>
-                                <input
-                                    type="password"
-                                    value={newUser.password}
-                                    onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
-                                    required
-                                />
-                            </div>
+                            {!editingUser && (
+                                <div className="form-group">
+                                    <label>Mot de passe</label>
+                                    <input
+                                        type="password"
+                                        value={newUser.password}
+                                        onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
+                                        required
+                                    />
+                                </div>
+                            )}
                             <div className="form-group">
                                 <label>Rôle</label>
                                 <select
-                                    value={newUser.role}
-                                    onChange={(e) => setNewUser({ ...newUser, role: e.target.value })}
+                                    value={editingUser ? editingUser.role : newUser.role}
+                                    onChange={(e) => editingUser ? setEditingUser({ ...editingUser, role: e.target.value }) : setNewUser({ ...newUser, role: e.target.value })}
                                 >
                                     <option value="Service">Service</option>
                                     <option value="Control">Contrôle</option>
