@@ -183,7 +183,7 @@ const EconomatDashboard = () => {
             const links = Object.entries(productLinks).map(([itemId, productId]) => ({
                 requestItemId: parseInt(itemId),
                 productId: parseInt(productId),
-                quantiteDonne: quantitesDonne[itemId] !== undefined ? quantitesDonne[itemId] : null
+                quantiteDonne: quantitesDonne[itemId] !== undefined ? (quantitesDonne[itemId] ?? 0) : 0
             }));
             
             if (links.length === 0) {
