@@ -180,14 +180,11 @@ const EconomatDashboard = () => {
     const handleFinalize = async (e) => {
         e.preventDefault();
         try {
-            const links = Object.entries(productLinks).map(([itemId, productId]) => {
-                const qteDonne = quantitesDonne[itemId];
-                return {
-                    requestItemId: parseInt(itemId),
-                    productId: parseInt(productId),
-                    quantiteDonne: (qteDonne !== undefined && qteDonne !== null && qteDonne > 0) ? qteDonne : null
-                };
-            });
+            const links = Object.entries(productLinks).map(([itemId, productId]) => ({
+                requestItemId: parseInt(itemId),
+                productId: parseInt(productId),
+                quantiteDonne: quantitesDonne[itemId] !== undefined ? quantitesDonne[itemId] : null
+            }));
             
             if (links.length === 0) {
                 alert('Veuillez sélectionner au moins un produit');
