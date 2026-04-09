@@ -610,14 +610,16 @@
     /* Bar chart container */
     .modal-content > div[style*="marginBottom"] {
         padding: 12px !important;
+        overflow-x: auto;
     }
     
     .modal-content h4,
     .modal-content h5 {
         font-size: 14px;
+        min-width: 200px;
     }
     
-    /* Stats grid - 2 columns on tablet */
+    /* Processing time stats grid - 2 columns on tablet */
     .modal-content > div[style*="grid-template-columns: repeat(4"] {
         grid-template-columns: repeat(2, 1fr) !important;
         gap: 10px !important;
@@ -629,6 +631,30 @@
     
     .modal-content > div[style*="grid-template-columns: repeat(4"] > div > div:first-child {
         font-size: 22px !important;
+    }
+    
+    /* Distribution chart */
+    .modal-content > div[style*="marginTop: 20px"] {
+        overflow-x: auto;
+        padding-bottom: 10px;
+    }
+    
+    .modal-content > div[style*="marginTop: 20px"] > div {
+        min-width: 250px;
+    }
+    
+    /* Table in stats - horizontal scroll */
+    .modal-content .items-table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .modal-content .items-table th,
+    .modal-content .items-table td {
+        white-space: nowrap;
+        font-size: 12px;
+        padding: 8px 6px;
     }
 }
 
@@ -646,26 +672,31 @@
         grid-template-columns: 1fr !important;
     }
     
-    /* Bar charts */
-    .modal-content > div[style*="marginBottom"][style*="padding"] {
-        overflow-x: hidden;
+    .modal-content > div[style*="grid-template-columns: repeat(4"] > div > div:first-child {
+        font-size: 20px !important;
     }
     
-    .modal-content > div[style*="marginBottom"] > div {
+    /* Stats labels */
+    .modal-content > div[style*="grid-template-columns: repeat(4"] > div > div:last-child {
+        font-size: 10px !important;
+    }
+    
+    /* Distribution bars on mobile */
+    .modal-content > div[style*="marginTop: 20px"] > div > div {
         font-size: 12px;
     }
     
-    .modal-content > div[style*="marginBottom"] > div > div:first-child {
-        font-size: 12px;
+    .modal-content > div[style*="marginTop: 20px"] h5 {
+        font-size: 13px;
     }
     
     /* Table in stats */
-    .items-table {
+    .modal-content .items-table {
         font-size: 11px;
     }
     
-    .items-table th,
-    .items-table td {
+    .modal-content .items-table th,
+    .modal-content .items-table td {
         padding: 6px 4px;
     }
 }
