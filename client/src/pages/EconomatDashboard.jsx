@@ -685,11 +685,21 @@ const EconomatDashboard = () => {
                                                         type="number"
                                                         min="0"
                                                         step="0.01"
-                                                        value={quantitesDonne[item.id] || ''}
-                                                        onChange={(e) => setQuantitesDonne({
-                                                            ...quantitesDonne,
-                                                            [item.id]: parseFloat(e.target.value) || 0
-                                                        })}
+                                                        value={quantitesDonne[item.id] !== undefined ? quantitesDonne[item.id] : ''}
+                                                        onChange={(e) => {
+                                                            const val = e.target.value;
+                                                            if (val === '' || val === '-') {
+                                                                setQuantitesDonne({
+                                                                    ...quantitesDonne,
+                                                                    [item.id]: null
+                                                                });
+                                                            } else {
+                                                                setQuantitesDonne({
+                                                                    ...quantitesDonne,
+                                                                    [item.id]: parseFloat(val)
+                                                                });
+                                                            }
+                                                        }}
                                                         placeholder="0"
                                                         style={{
                                                             width: '80px',
