@@ -735,6 +735,21 @@
     .processing-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+    
+    /* Admin table responsive */
+    .admin-section .requests-table {
+        overflow-x: auto;
+    }
+    
+    .admin-section .requests-table table {
+        min-width: 500px;
+    }
+    
+    .admin-section .requests-table th,
+    .admin-section .requests-table td {
+        padding: 10px 8px;
+        font-size: 13px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -744,6 +759,27 @@
     
     .proc-value {
         font-size: 22px;
+    }
+    
+    /* More aggressive table responsive */
+    .admin-section .requests-table {
+        margin: 0 -15px;
+        padding: 0 15px;
+    }
+    
+    .admin-section .requests-table table {
+        min-width: 400px;
+    }
+    
+    .admin-section .requests-table th,
+    .admin-section .requests-table td {
+        padding: 8px 6px;
+        font-size: 12px;
+    }
+    
+    .btn-details {
+        padding: 6px 10px;
+        font-size: 11px;
     }
 }
 
