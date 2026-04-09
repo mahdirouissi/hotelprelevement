@@ -768,13 +768,19 @@
     }
     
     .admin-section .requests-table table {
-        min-width: 400px;
+        min-width: 350px;
     }
     
     .admin-section .requests-table th,
     .admin-section .requests-table td {
         padding: 8px 6px;
         font-size: 12px;
+    }
+    
+    /* Hide ID column on mobile */
+    .admin-section .requests-table th:first-child,
+    .admin-section .requests-table td:first-child {
+        display: none;
     }
     
     .btn-details {

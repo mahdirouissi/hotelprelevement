@@ -191,7 +191,6 @@ const AdminDashboard = () => {
                                         <tr>
                                             <th>ID</th>
                                             <th>Nom d'utilisateur</th>
-                                            <th>Service</th>
                                             <th>Rôle</th>
                                             <th>Actions</th>
                                         </tr>
@@ -201,7 +200,6 @@ const AdminDashboard = () => {
                                             <tr key={u.id}>
                                                 <td>#{u.id}</td>
                                                 <td>{u.username}</td>
-                                                <td>{u.serviceName || '-'}</td>
                                                 <td>
                                                     <span className={`role-badge role-${u.role?.toLowerCase() || 'service'}`}>
                                                         {u.role || 'Service'}
