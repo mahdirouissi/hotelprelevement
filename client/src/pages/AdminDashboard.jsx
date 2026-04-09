@@ -185,38 +185,40 @@ const AdminDashboard = () => {
                         {users.length === 0 ? (
                             <p className="no-data">Aucun utilisateur trouvé</p>
                         ) : (
-                            <div className="requests-table">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Nom d'utilisateur</th>
-                                            <th>Rôle</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {users.map(u => (
-                                            <tr key={u.id}>
-                                                <td>#{u.id}</td>
-                                                <td>{u.username}</td>
-                                                <td>
-                                                    <span className={`role-badge role-${u.role?.toLowerCase() || 'service'}`}>
-                                                        {u.role || 'Service'}
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                    <button 
-                                                        onClick={() => { setEditingUser(u); setShowUserModal(true); }}
-                                                        className="btn-details"
-                                                    >
-                                                        ✏️ Modifier
-                                                    </button>
-                                                </td>
+                            <div className="requests-table-wrapper">
+                                <div className="requests-table">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Nom d'utilisateur</th>
+                                                <th>Rôle</th>
+                                                <th>Actions</th>
                                             </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            {users.map(u => (
+                                                <tr key={u.id}>
+                                                    <td>#{u.id}</td>
+                                                    <td>{u.username}</td>
+                                                    <td>
+                                                        <span className={`role-badge role-${u.role?.toLowerCase() || 'service'}`}>
+                                                            {u.role || 'Service'}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <button 
+                                                            onClick={() => { setEditingUser(u); setShowUserModal(true); }}
+                                                            className="btn-details"
+                                                        >
+                                                            ✏️ Modifier
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         )}
                     </div>
@@ -232,29 +234,31 @@ const AdminDashboard = () => {
                         {requests.length === 0 ? (
                             <p className="no-data">Aucune demande trouvée</p>
                         ) : (
-                            <div className="requests-table">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Service</th>
-                                            <th>Date</th>
-                                            <th>Statut</th>
-                                            <th>Articles</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {requests.map(req => (
-                                            <tr key={req.id}>
-                                                <td>#{req.id}</td>
-                                                <td>{req.serviceName}</td>
-                                                <td>{new Date(req.requestDate).toLocaleDateString()}</td>
-                                                <td>{getStatusBadge(req.status)}</td>
-                                                <td>{req.items?.length || 0}</td>
+                            <div className="requests-table-wrapper">
+                                <div className="requests-table">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Service</th>
+                                                <th>Date</th>
+                                                <th>Statut</th>
+                                                <th>Articles</th>
                                             </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            {requests.map(req => (
+                                                <tr key={req.id}>
+                                                    <td>#{req.id}</td>
+                                                    <td>{req.serviceName}</td>
+                                                    <td>{new Date(req.requestDate).toLocaleDateString()}</td>
+                                                    <td>{getStatusBadge(req.status)}</td>
+                                                    <td>{req.items?.length || 0}</td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         )}
                     </div>
