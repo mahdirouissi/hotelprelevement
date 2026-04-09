@@ -114,6 +114,16 @@
     overflow: hidden;
 }
 
+.requests-table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 20px;
+}
+
+.requests-table {
+    min-width: 500px;
+}
+
 .requests-table table {
     width: 100%;
     border-collapse: collapse;
@@ -328,9 +338,36 @@
         width: 100%;
     }
     
+    .requests-table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .requests-table {
+        min-width: 500px;
+    }
+    
     .requests-table table {
-        min-width: 600px;
+        min-width: 500px;
         font-size: 12px;
+    }
+    
+    .requests-table thead th,
+    .requests-table tbody td {
+        padding: 10px 12px;
+        white-space: nowrap;
+    }
+    
+    .cell-mobile-label {
+        display: inline;
+        font-weight: 600;
+        color: #667eea;
+        margin-right: 4px;
+    }
+    
+    .btn-details {
+        padding: 6px 10px;
+        font-size: 11px;
     }
     
     .action-buttons {
@@ -416,6 +453,7 @@
     }
 }
 
+/* Extra Small Devices */
 @media (max-width: 480px) {
     .dashboard-header h1 {
         font-size: 18px;
@@ -433,6 +471,24 @@
     
     .requests-section h2 {
         font-size: 16px;
+    }
+    
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+    
+    .stat-card {
+        padding: 10px;
+    }
+    
+    .stat-value {
+        font-size: 24px;
+    }
+    
+    .stat-label {
+        font-size: 11px;
     }
     
     .accordion-toggle {
@@ -498,7 +554,28 @@
     
     .btn-submit, .btn-cancel {
         width: 100%;
+    }
+
+    /* Service Dashboard Specific */
+    .dashboard-content .actions {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .btn-primary {
+        width: 100%;
         justify-content: center;
+    }
+    
+    .requests-table-wrapper {
+        margin: 0 -10px;
+        padding: 0 10px;
+    }
+    
+    .status-badge {
+        font-size: 10px;
+        padding: 4px 8px;
     }
 }
 
