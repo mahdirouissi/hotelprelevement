@@ -656,6 +656,11 @@
         font-size: 12px;
         padding: 8px 6px;
     }
+    
+    /* Processing time container */
+    .modal-content > div[style*="padding: 20px"][style*="borderRadius: 12px"] {
+        padding: 12px !important;
+    }
 }
 
 @media (max-width: 480px) {
@@ -667,18 +672,31 @@
         min-height: 80vh;
     }
     
-    /* Stats grid - 1 column on small mobile */
+    /* Stats grid - 1 column on small mobile - VERY AGGRESSIVE */
     .modal-content > div[style*="grid-template-columns: repeat(4"] {
-        grid-template-columns: 1fr !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+    }
+    
+    .modal-content > div[style*="grid-template-columns: repeat(4"] > div {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 8px 12px !important;
+        text-align: left !important;
+        min-height: 50px;
     }
     
     .modal-content > div[style*="grid-template-columns: repeat(4"] > div > div:first-child {
-        font-size: 20px !important;
+        font-size: 18px !important;
+        font-weight: 700 !important;
     }
     
-    /* Stats labels */
     .modal-content > div[style*="grid-template-columns: repeat(4"] > div > div:last-child {
-        font-size: 10px !important;
+        font-size: 12px !important;
+        margin-top: 0 !important;
     }
     
     /* Distribution bars on mobile */
@@ -698,6 +716,11 @@
     .modal-content .items-table th,
     .modal-content .items-table td {
         padding: 6px 4px;
+    }
+    
+    /* Processing time container mobile */
+    .modal-content > div[style*="padding: 20px"][style*="borderRadius: 12px"] {
+        padding: 10px !important;
     }
 }
 
