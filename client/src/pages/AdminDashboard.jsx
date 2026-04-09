@@ -354,6 +354,7 @@ const AdminDashboard = () => {
                                 <label>Nom d'utilisateur</label>
                                 <input
                                     type="text"
+                                    placeholder="Entrez le nom d'utilisateur"
                                     value={editingUser ? editingUser.username : newUser.username}
                                     onChange={(e) => editingUser ? setEditingUser({ ...editingUser, username: e.target.value }) : setNewUser({ ...newUser, username: e.target.value })}
                                     required
@@ -363,6 +364,7 @@ const AdminDashboard = () => {
                                 <label>Email</label>
                                 <input
                                     type="email"
+                                    placeholder="Entrez l'email"
                                     value={editingUser ? editingUser.email : newUser.email}
                                     onChange={(e) => editingUser ? setEditingUser({ ...editingUser, email: e.target.value }) : setNewUser({ ...newUser, email: e.target.value })}
                                     required
@@ -373,6 +375,7 @@ const AdminDashboard = () => {
                                     <label>Mot de passe</label>
                                     <input
                                         type="password"
+                                        placeholder="Entrez le mot de passe"
                                         value={newUser.password}
                                         onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
                                         required
