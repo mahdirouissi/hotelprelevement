@@ -637,7 +637,8 @@ public class RequestController : ControllerBase
                 return BadRequest(new { message = $"Produit {link.ProductId} non trouvé" });
             
             item.ProductId = link.ProductId;
-            item.QuantiteDonne = link.QuantiteDonne;
+            // Ensure 0 is saved as 0, not null
+            item.QuantiteDonne = link.QuantiteDonne ?? 0;
         }
         
         var userId = GetCurrentUserId();
