@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { authService, requestService } from '../services/api';
+import { authService, requestService, serviceService } from '../services/api';
 import './Dashboard.css';
 
 const AdminDashboard = () => {
@@ -35,18 +35,23 @@ const AdminDashboard = () => {
 
     const loadUsers = async () => {
         try {
-            // For now, we'll fetch all requests to get user info
-            const requestsData = await requestService.getAllRequests();
-            // Extract unique users from requests
-            const uniqueUsers = new Map();
-            requestsData.forEach(req => {
-                if (req.requestedByUser) {
-                    uniqueUsers.set(req.requestedByUser.id, req.requestedByUser);
-                }
-            });
-            setUsers(Array.from(uniqueUsers.values()));
+            const usersData = await authService.getUsers();
+            setUsers(usersData);
         } catch (err) {
             console.error('Error loading users:', err);
+            // Fallback: extract users from requests
+            try {
+                const requestsData = await requestService.getAllRequests();
+                const uniqueUsers = new Map();
+                requestsData.forEach(req => {
+                    if (req.requestedByUser) {
+                        uniqueUsers.set(req.requestedByUser.id, req.requestedByUser);
+                    }
+                });
+                setUsers(Array.from(uniqueUsers.values()));
+            } catch (fallbackErr) {
+                console.error('Fallback also failed:', fallbackErr);
+            }
         }
     };
 
