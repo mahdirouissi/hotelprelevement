@@ -619,13 +619,19 @@
         min-width: 200px;
     }
     
-    /* Processing time stats grid - 2 columns on tablet */
-    .modal-content > div[style*="grid-template-columns: repeat(4"] {
-        grid-template-columns: repeat(2, 1fr) !important;
+    /* Processing time stats grid - 2 columns on tablet - Use flex for better control */
+    .modal-content > div[style*="grid-template-columns: repeat(4"],
+    div[style*="grid-template-columns: repeat(4, 1fr)"] {
+        display: flex !important;
+        flex-wrap: wrap !important;
         gap: 10px !important;
+        grid-template-columns: none !important;
     }
     
-    .modal-content > div[style*="grid-template-columns: repeat(4"] > div {
+    .modal-content > div[style*="grid-template-columns: repeat(4"] > div,
+    div[style*="grid-template-columns: repeat(4, 1fr)"] > div {
+        flex: 1 1 calc(50% - 5px) !important;
+        min-width: 45% !important;
         padding: 10px !important;
     }
     
@@ -672,14 +678,20 @@
         min-height: 80vh;
     }
     
-    /* Stats grid - 1 column on small mobile - VERY AGGRESSIVE */
-    .modal-content > div[style*="grid-template-columns: repeat(4"] {
+    /* Stats grid - Convert grid to flex column layout */
+    .modal-content > div[style*="grid-template-columns"],
+    .modal-content > div > div[style*="grid-template-columns"],
+    div[style*="grid-template-columns: repeat(4"] {
         display: flex !important;
         flex-direction: column !important;
         gap: 8px !important;
+        grid-template-columns: none !important;
     }
     
-    .modal-content > div[style*="grid-template-columns: repeat(4"] > div {
+    /* Each stat card - horizontal layout */
+    .modal-content > div[style*="grid-template-columns"] > div,
+    div[style*="grid-template-columns: repeat(4"] > div,
+    .modal-content [style*="grid-template-columns: repeat(4"] > div {
         display: flex !important;
         flex-direction: row !important;
         justify-content: space-between !important;
@@ -687,14 +699,19 @@
         padding: 8px 12px !important;
         text-align: left !important;
         min-height: 50px;
+        width: 100% !important;
     }
     
-    .modal-content > div[style*="grid-template-columns: repeat(4"] > div > div:first-child {
+    /* Value (number) styling */
+    .modal-content > div[style*="grid-template-columns"] > div > div:first-child,
+    div[style*="grid-template-columns: repeat(4"] > div > div:first-child {
         font-size: 18px !important;
         font-weight: 700 !important;
     }
     
-    .modal-content > div[style*="grid-template-columns: repeat(4"] > div > div:last-child {
+    /* Label (text below) */
+    .modal-content > div[style*="grid-template-columns"] > div > div:last-child,
+    div[style*="grid-template-columns: repeat(4"] > div > div:last-child {
         font-size: 12px !important;
         margin-top: 0 !important;
     }
