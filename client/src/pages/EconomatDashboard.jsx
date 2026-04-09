@@ -149,7 +149,7 @@ const EconomatDashboard = () => {
                 if (item.productId) {
                     existingLinks[item.id] = item.productId;
                 }
-                if (item.quantiteDonne) {
+                if (item.quantiteDonne !== null && item.quantiteDonne !== undefined) {
                     existingQuantites[item.id] = item.quantiteDonne;
                 }
             });
@@ -180,11 +180,14 @@ const EconomatDashboard = () => {
     const handleFinalize = async (e) => {
         e.preventDefault();
         try {
-            const links = Object.entries(productLinks).map(([itemId, productId]) => ({
-                requestItemId: parseInt(itemId),
-                productId: parseInt(productId),
-                quantiteDonne: quantitesDonne[itemId] || null
-            }));
+            const links = Object.entries(productLinks).map(([itemId, productId]) => {
+                const qteDonne = quantitesDonne[itemId];
+                return {
+                    requestItemId: parseInt(itemId),
+                    productId: parseInt(productId),
+                    quantiteDonne: (qteDonne !== undefined && qteDonne !== null && qteDonne > 0) ? qteDonne : null
+                };
+            });
             
             if (links.length === 0) {
                 alert('Veuillez sélectionner au moins un produit');
